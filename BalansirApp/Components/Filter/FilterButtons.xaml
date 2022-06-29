@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BalansirApp.Components.Filter.FilterButtons">
+    <ContentView.Content>
+        <StackLayout Orientation="Horizontal" HeightRequest="36" Padding="0">
+
+            <Button 
+                Text="ФИЛЬТР   "
+                CornerRadius="5"
+                Command="{Binding ApplyFilterCmd}"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand" 
+                ImageSource="icons8_filter_24_bright"
+                BackgroundColor="{StaticResource AccentBlueColor}"
+                TextColor="{StaticResource BrightTextColor}" 
+                FontAttributes="Bold" 
+                Padding="5,-2,0,0" Margin="3,0,0,0" >
+            </Button>
+
+            <Button 
+                Command="{Binding ResetFilterCommand}"
+                HorizontalOptions="End" 
+                WidthRequest="36" 
+                ImageSource="icons8_broom_24_bright"
+                CornerRadius="5"
+                BackgroundColor="{StaticResource AccentBlueColor}" 
+                Margin="3,0,0,0">
+            </Button>
+
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

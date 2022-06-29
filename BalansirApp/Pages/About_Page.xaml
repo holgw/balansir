@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BalansirApp.Pages.About_Page"
+             Title="О приложении"             
+             BackgroundColor="{StaticResource PageBackgroundColor}"
+             xmlns:controls="clr-namespace:BalansirApp.Controls;assembly=BalansirApp">
+    <ContentPage.Content>
+        <StackLayout Spacing="10" Padding="15,8,15,0">
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Графика: " TextColor="{StaticResource BrightTextColor}"/>
+                        <controls:HyperlinkSpan 
+                            Text="icons8"
+                            Url="https://icons8.com/" 
+                            TextColor="{StaticResource AccentRedColor}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Графика: " TextColor="{StaticResource BrightTextColor}"/>
+                        <controls:HyperlinkSpan 
+                            Text="icons8"
+                            Url="https://icons8.com/" 
+                            TextColor="{StaticResource AccentRedColor}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="База данных: " TextColor="{StaticResource BrightTextColor}"/>
+                        <controls:HyperlinkSpan 
+                            Text="SQLite"
+                            Url="https://www.sqlite.org/" 
+                            TextColor="{StaticResource AccentRedColor}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="ORM: " TextColor="{StaticResource BrightTextColor}"/>
+                        <controls:HyperlinkSpan 
+                            Text="SQLite-net"
+                            Url="https://github.com/praeclarum/sqlite-net" 
+                            TextColor="{StaticResource AccentRedColor}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Сканирование штрихкодов: " TextColor="{StaticResource BrightTextColor}"/>
+                        <controls:HyperlinkSpan 
+                            Text="ZXing.Net"
+                            Url="https://github.com/micjahn/ZXing.Net" 
+                            TextColor="{StaticResource AccentRedColor}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

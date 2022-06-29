@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BalansirApp.Components.Filter.DateTimeRangeInput"
+             xmlns:controls="clr-namespace:BalansirApp.Controls;assembly=BalansirApp">
+
+    <ContentView.Content>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+            <Image Source="icons8_calendar_24_faint" VerticalOptions="Center"/>
+
+            <controls:RoundBorderDatePicker
+                x:Name="StartDatePicker"
+                Format="dd.MM.yyyy" 
+                TextColor="{StaticResource BrightTextColor}"                        
+                BorderRadius="12"
+                BorderWidth="0"
+                BorderColor="{StaticResource InputFieldBackgroundColor}"
+                Date="{Binding Start}" 
+                HorizontalOptions="FillAndExpand">
+            </controls:RoundBorderDatePicker>
+
+            <Label 
+                Text="-" 
+                TextColor="#404A70"
+                FontSize="Subtitle"
+                FontAttributes="Bold"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="End"
+                HorizontalTextAlignment="End" 
+                Padding="3,0">
+            </Label>
+
+            <controls:RoundBorderDatePicker 
+                x:Name="EndDatePicker"
+                Format="dd.MM.yyyy" 
+                TextColor="{StaticResource BrightTextColor}"                        
+                BorderRadius="12"
+                BorderWidth="0"
+                BorderColor="{StaticResource InputFieldBackgroundColor}"
+                Date="{Binding End, Mode=TwoWay}" 
+                HorizontalOptions="FillAndExpand">
+            </controls:RoundBorderDatePicker>
+
+        </StackLayout>
+
+    </ContentView.Content>
+</ContentView>

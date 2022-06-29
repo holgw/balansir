@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BalansirApp.Components.Filter.UniversalSearchInput"
+             xmlns:controls="clr-namespace:BalansirApp.Controls;assembly=BalansirApp">
+    <ContentView.Content>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="36" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0"
+                Clicked="ShowBarcodeReaderPage" 
+                HorizontalOptions="End" 
+                WidthRequest="34" 
+                ImageSource="icons8_scan_24_bright"
+                CornerRadius="5"
+                BackgroundColor="{StaticResource AccentBlueColor}">
+            </Button>
+
+            <controls:StandardEntry Grid.Column="1" Grid.Row="0"
+                HorizontalOptions="Fill"
+                Text="{Binding SearchName, Mode=TwoWay}"
+                BackgroundColor="{StaticResource InputFieldBackgroundColor}"
+                TextColor="{StaticResource BrightTextColor}"                    
+                BorderThickness="0"
+                CornerRadius="5"
+                FontSize="Default" 
+                Placeholder="НАИМЕНОВАНИЕ">
+            </controls:StandardEntry>
+        </Grid>
+        
+    </ContentView.Content>
+</ContentView>

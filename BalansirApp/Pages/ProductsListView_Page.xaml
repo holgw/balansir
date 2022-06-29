@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BalansirApp.Pages.ProductsListView_Page"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource PageBackgroundColor}" 
+             x:Name="BrowseItemsPage" 
+             xmlns:components="clr-namespace:BalansirApp.Components.Filter"
+             xmlns:cell="clr-namespace:BalansirApp.Components"
+             NavigationPage.HasBackButton="False">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Clicked="AddItem_Clicked">
+            <ToolbarItem.Icon>
+                <FileImageSource File="icons8_plus_48"/>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout Spacing="10" Padding="15,8,15,0">
+
+            <!-- SEARCH -->
+            <components:UniversalSearchInput HorizontalOptions="FillAndExpand" SearchName="{Binding SearchName, Mode=TwoWay}"/>
+            <components:FilterButtons HorizontalOptions="FillAndExpand"/>
+            <components:ResultsDivider HorizontalOptions="Fill"/>
+
+            <ListView 
+                x:Name="ItemsListView" 
+                BackgroundColor="{StaticResource PageBackgroundColor}"
+                ItemsSource="{Binding Items}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                SeparatorVisibility="None"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                SelectionMode="None">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="0" Margin="0,5" HasShadow="True" CornerRadius="5">
+                                <StackLayout Orientation="Horizontal" Margin="0" Padding="0" BackgroundColor="{StaticResource InputFieldBackgroundColor}">
+
+                                    <Button 
+                                        BackgroundColor="{StaticResource AccentPurpleColor}" 
+                                        WidthRequest="34" 
+                                        ImageSource="icons8_big_parcel_24_bright"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="EditProduct_Clicked">
+                                    </Button>
+
+                                    <cell:ProductCellView Product="{Binding .}" HorizontalOptions="FillAndExpand"/>
+
+                                    <Button 
+                                        BackgroundColor="{StaticResource AccentCyanColor}" 
+                                        WidthRequest="34" 
+                                        ImageSource="icons8_in_transit_24_bright"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="ShowProductActs_Clicked">
+                                    </Button>
+
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <components:PageSwitcher/>
+
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

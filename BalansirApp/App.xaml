@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BalansirApp.App"
+             xmlns:controls="clr-namespace:BalansirApp.Controls;assembly=BalansirApp">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            
+            <!--COLORS-->
+            <Color x:Key="PageBackgroundColor">#2B2840</Color>
+            <Color x:Key="BrightTextColor">#EFECFF</Color>
+            <Color x:Key="FaintTextColor">#696396</Color>
+            <Color x:Key="InputFieldBackgroundColor">#34324C</Color>
+            <Color x:Key="AccentBlueColor">#5A66D0</Color>
+            <Color x:Key="AccentCyanColor">#19A8F5</Color>
+            <Color x:Key="AccentRedColor">#E45F75</Color>
+            <Color x:Key="AccentPurpleColor">#9656FF</Color>
+
+            <!--  STYLES  -->            
+            <Style x:Key="InputHeaderLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource FaintTextColor}" />
+                <Setter Property="HorizontalTextAlignment" Value="End" />
+                <Setter Property="VerticalTextAlignment" Value="End" />
+            </Style>
+
+            <Style x:Key="StandardInput" TargetType="controls:StandardEntry">
+                <Setter Property="FontSize" Value="Subtitle" />
+                <Setter Property="BackgroundColor" Value="{StaticResource InputFieldBackgroundColor}" />
+                <Setter Property="TextColor" Value="{StaticResource BrightTextColor}" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+
+            <Style x:Key="StandardButton" TargetType="Button">
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="BackgroundColor" Value="{StaticResource AccentBlueColor}" />
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="HeightRequest" Value="42" />
+                <Setter Property="TextColor" Value="{StaticResource BrightTextColor}" />
+            </Style>
+
+            <Style x:Key="CardBodyLabel" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="TextColor" Value="{StaticResource BrightTextColor}" />
+            </Style>
+
+            <Style x:Key="InternalInputButton" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="HeightRequest" Value="20" />
+                <Setter Property="WidthRequest" Value="28" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+            </Style>
+
+        </ResourceDictionary>        
+    </Application.Resources>
+</Application>

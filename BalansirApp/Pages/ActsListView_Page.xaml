@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             BackgroundColor="{StaticResource PageBackgroundColor}"
+             x:Class="BalansirApp.Pages.ActsListView_Page" 
+             Title="{Binding Title}"
+             xmlns:components="clr-namespace:BalansirApp.Components.Filter"
+             xmlns:cell="clr-namespace:BalansirApp.Components">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Clicked="AddItem_Clicked" IsEnabled="{Binding IsProductLableVisible}">
+            <ToolbarItem.Icon>
+                <FileImageSource File="icons8_plus_48"/>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Int32 x:Key="SmallCornerRadius">4</x:Int32>
+            <x:Int32 x:Key="MediumCornerRadius">8</x:Int32>
+            <x:Int32 x:Key="LargeCornerRadius">16</x:Int32>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="10" Padding="15,8,15,0">
+
+            <!-- PRODUCT -->
+            <StackLayout Orientation="Horizontal" 
+                         MinimumHeightRequest="36" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand" 
+                         IsVisible="{Binding IsProductLableVisible}">
+                
+                <Image Source="icons8_product_24_faint" VerticalOptions="Center"/>
+
+                <Label Text="{Binding Product.Name}" 
+                       TextColor="{StaticResource FaintTextColor}"
+                       FontSize="Subtitle"
+                       FontAttributes="Bold"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start"/>
+                
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HeightRequest="36" HorizontalOptions="FillAndExpand">
+                <components:DateTimeRangeInput 
+                    HorizontalOptions="FillAndExpand" 
+                    Start="{Binding Start, Mode=TwoWay}" 
+                    End="{Binding End, Mode=TwoWay}">
+                </components:DateTimeRangeInput>
+            </StackLayout>
+
+            <components:FilterButtons HorizontalOptions="FillAndExpand"/>
+            <components:ResultsDivider HorizontalOptions="Fill"/>
+
+            <ListView 
+                x:Name="ItemsListView" 
+                BackgroundColor="{StaticResource PageBackgroundColor}"
+                ItemsSource="{Binding Items}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                SeparatorVisibility="None"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                SelectionMode="None"
+                ItemTapped="Show_EditActPage">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="0" Margin="0,5" HasShadow="True" CornerRadius="5">
+                                <StackLayout Orientation="Horizontal" Margin="0" Padding="0" BackgroundColor="{StaticResource InputFieldBackgroundColor}">
+                                    <Button 
+                                        BackgroundColor="{StaticResource AccentCyanColor}" 
+                                        WidthRequest="34" 
+                                        ImageSource="icons8_in_transit_24_bright"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="Show_EditActPage">
+                                    </Button>
+
+                                    <cell:ActCellView ActView="{Binding .}" HorizontalOptions="FillAndExpand"/>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <components:PageSwitcher/>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

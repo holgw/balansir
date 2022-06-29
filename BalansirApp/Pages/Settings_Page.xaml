@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BalansirApp.Pages.Settings_Page"
+             Title="{Binding Title}"             
+             BackgroundColor="{StaticResource PageBackgroundColor}"
+             xmlns:controls="clr-namespace:BalansirApp.Controls;assembly=BalansirApp"
+             xmlns:converters="clr-namespace:BalansirApp.Controls.Converters;assembly=BalansirApp">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DecimalConverter x:Key="DecimalConverter" />
+            <converters:IntConverter x:Key="IntConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="10" Padding="15,8,15,0">
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="36" />
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="36" />
+                </Grid.RowDefinitions>
+
+                <!--PAGE SIZE-->
+                <Label Text="КОЛ-ВО ЭЛЕМЕНТОВ СПИСКА НА СТРАНИЦЕ" 
+                       Grid.Column="0" Grid.Row="0"
+                       Style="{StaticResource InputHeaderLabel}"/>
+
+                <controls:StandardEntry 
+                    Text="{Binding PageSize, Converter={StaticResource IntConverter}}"
+                    Grid.Column="0" Grid.Row="1"
+                    Keyboard="Numeric" 
+                    Style="{StaticResource StandardInput}">
+                    <Entry.Behaviors>
+                        <controls:MinMaxValidatorBehavior 
+                        MinValue="1" 
+                        MaxValue="99999"/>
+                    </Entry.Behaviors>
+                </controls:StandardEntry>
+
+                <!--HISTORY DAYS COUNT-->
+                <Label Text="КОЛ-ВО ДНЕЙ ДЛЯ ОТОБРАЖЕНИЯ" 
+                       Grid.Column="0" Grid.Row="2"
+                       Style="{StaticResource InputHeaderLabel}"/>
+
+                <controls:StandardEntry 
+                    Text="{Binding HistoryDaysCount, Converter={StaticResource IntConverter}}"
+                    Grid.Column="0" Grid.Row="3"
+                    Keyboard="Numeric" 
+                    Style="{StaticResource StandardInput}">
+                    <Entry.Behaviors>
+                        <controls:MinMaxValidatorBehavior 
+                        MinValue="1" 
+                        MaxValue="99999"/>
+                    </Entry.Behaviors>
+                </controls:StandardEntry>
+
+            </Grid>
+
+            <!--BUTTONS-->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" HeightRequest="36">
+                <Button Text="СОХРАНИТЬ"
+                        Command="{Binding SaveCommand}" 
+                        ImageSource="icons8_save_24_bright"
+                        Style="{StaticResource StandardButton}"
+                        HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

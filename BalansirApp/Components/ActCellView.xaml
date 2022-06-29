@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="BalansirApp.Components.ActCellView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentView.Content>
+        <StackLayout
+            Padding="0"
+            BackgroundColor="Transparent"
+            Spacing="0">
+            
+            <!--TITLE-->
+            <StackLayout
+                x:Name="Header"
+                Padding="5,10"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical">
+                
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Title_Clicked" />
+                </StackLayout.GestureRecognizers>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--DELTA-->
+                    <Image Grid.Column="0" Grid.Row="0" Source="icons8_pallet_24_faint" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Grid.Row="0" x:Name="DeltaLabel" Text="{Binding DeltaString}" Style="{StaticResource CardBodyLabel}" TextColor="{Binding Color}"/>
+
+                    <!--TIMESTAMP-->
+                    <Image Grid.Column="0" Grid.Row="1" Source="icons8_calendar_24_faint" HorizontalOptions="Center"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding TimeStamp, StringFormat='{0:dd.MM.yy HH:mm}'}" Style="{StaticResource CardBodyLabel}"/>
+
+                    <!--NAME-->
+                    <Image Grid.Column="0" Grid.Row="2" Source="icons8_product_24_faint" HorizontalOptions="Center"/>
+                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding ProductName}" Style="{StaticResource CardBodyLabel}"/>
+                </Grid>
+
+            </StackLayout>
+            
+            <!--EXPANDABLE BODY-->
+            <StackLayout
+                x:Name="ExpandableLayout"
+                Padding="0"
+                HorizontalOptions="FillAndExpand"
+                Opacity="0">
+
+                <StackLayout x:Name="ExpandableContent" Padding="5,0,5,10">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <!--DESCRIPTION-->
+                        <Image Grid.Column="0" Grid.Row="0" Source="icons8_comments_24_faint" HorizontalOptions="Center"/>
+                        <Label Grid.Column="1" Grid.Row="0" Text="{Binding Comment}" Style="{StaticResource CardBodyLabel}"/>
+                    </Grid>
+                </StackLayout>
+                
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

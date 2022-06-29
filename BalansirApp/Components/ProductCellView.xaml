@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="BalansirApp.Components.ProductCellView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentView.Content>
+        <StackLayout
+            Padding="0"
+            BackgroundColor="Transparent"
+            Spacing="0">
+            
+            <!--TITLE-->
+            <StackLayout
+                x:Name="Header"
+                Padding="5,10"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical">
+                
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Title_Clicked" />
+                </StackLayout.GestureRecognizers>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--BALANCE-->
+                    <Image Grid.Column="0" Grid.Row="0" Source="icons8_pallet_24_faint" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Grid.Row="0" x:Name="BalanceLabel" Text="{Binding BalanceText}" Style="{StaticResource CardBodyLabel}"/>
+
+                    <!--NAME-->
+                    <Image Grid.Column="0" Grid.Row="1" Source="icons8_product_24_faint" HorizontalOptions="Center"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Name}" Style="{StaticResource CardBodyLabel}"/>
+                </Grid>
+
+            </StackLayout>
+            
+            <!--EXPANDABLE BODY-->
+            <StackLayout
+                x:Name="ExpandableLayout"
+                Padding="0"
+                HorizontalOptions="FillAndExpand"
+                Opacity="0">
+
+                <StackLayout x:Name="ExpandableContent" Padding="5,0,5,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <!--CODE-->
+                        <Image Grid.Column="0" Grid.Row="0" Source="icons8_barcode_24_faint" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Grid.Row="0" Text="{Binding Code}" Style="{StaticResource CardBodyLabel}"/>
+
+                        <!--DESCRIPTION-->
+                        <Image Grid.Column="0" Grid.Row="1" Source="icons8_text_box_24_faint" HorizontalOptions="Center"/>
+                        <Label Grid.Column="1" Grid.Row="1" Text="{Binding Description}" Style="{StaticResource CardBodyLabel}"/>
+                    </Grid>
+                </StackLayout>
+                
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

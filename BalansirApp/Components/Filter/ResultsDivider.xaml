@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BalansirApp.Components.Filter.ResultsDivider">
+
+    <StackLayout Orientation="Horizontal">
+
+        <BoxView 
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center"
+            HeightRequest="1"
+            Color="{StaticResource InputFieldBackgroundColor}"
+            Margin ="10, 0, 10, 0">
+        </BoxView>
+
+        <Label 
+            Text="КОЛ-ВО:" 
+            TextColor="{StaticResource FaintTextColor}"
+            FontSize="Default"
+            FontAttributes="Bold"
+            VerticalTextAlignment="Center"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="End" 
+            Padding="5,0,0,0">
+        </Label>
+
+        <Label 
+            Text="{Binding TotalItemsCount}" 
+            TextColor="{StaticResource FaintTextColor}"
+            FontSize="Subtitle"
+            FontAttributes="Bold"
+            VerticalTextAlignment="Center"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="End" Padding="5,0,0,0">
+        </Label>
+
+        <BoxView 
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center"
+            HeightRequest="1"
+            Color="{StaticResource InputFieldBackgroundColor}"
+            Margin ="10, 0, 10, 0">
+        </BoxView>
+
+    </StackLayout>
+    
+</ContentView>

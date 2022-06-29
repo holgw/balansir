@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BalansirApp.Pages.ProductEdit_Page"
+             Title="{Binding Title}"             
+             BackgroundColor="{StaticResource PageBackgroundColor}"
+             xmlns:controls="clr-namespace:BalansirApp.Controls;assembly=BalansirApp">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="10" Padding="15,8,15,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="172" />
+                    </Grid.RowDefinitions>
+
+                    <!--PRODUCT NAME-->
+                    <Label Text="НАИМЕНОВАНИЕ" 
+                       Grid.Column="1" Grid.Row="0"
+                       Style="{StaticResource InputHeaderLabel}"/>
+                    <Image Grid.Column="0" Grid.Row="1" Source="icons8_product_24_faint.png" VerticalOptions="Center"/>
+                    <controls:StandardEntry
+                    Grid.Column="1" Grid.Row="1"
+                    Text="{Binding Name, Mode=TwoWay}"
+                    Style="{StaticResource StandardInput}"/>
+
+                    <!--CODE-->
+                    <Label Text="КОД" 
+                       Grid.Column="1" Grid.Row="2"
+                       Style="{StaticResource InputHeaderLabel}"/>
+                    <Image Grid.Column="0" Grid.Row="3" Source="icons8_barcode_24_faint.png" VerticalOptions="Center"/>
+                    <controls:StandardEntry
+                        Text="{Binding Code, Mode=TwoWay}"
+                        Grid.Column="1" Grid.Row="3"
+                        Style="{StaticResource StandardInput}"
+                         Margin="0,0,42,0">
+                    </controls:StandardEntry>
+                    <Button 
+                        Grid.Column="1" Grid.Row="3"
+                        Clicked="ShowBarcodeReaderPage" 
+                        HorizontalOptions="End" 
+                        WidthRequest="34" 
+                        ImageSource="icons8_scan_24_bright"
+                        CornerRadius="5"
+                        BackgroundColor="{StaticResource AccentBlueColor}">
+                    </Button>
+
+                    <!--UNITS-->
+                    <Label Text="ЕДИНИЦЫ ИЗМЕРЕНИЯ"
+                       Grid.Column="1" Grid.Row="4"
+                       Style="{StaticResource InputHeaderLabel}"/>
+                    <Image Grid.Column="0" Grid.Row="5" Source="icons8_scale_24_faint.png" VerticalOptions="Center"/>
+                    <controls:StandardEntry
+                    Grid.Column="1" Grid.Row="5"
+                    Text="{Binding Units, Mode=TwoWay}"
+                    Style="{StaticResource StandardInput}"/>
+
+                    <!--DESCRIPTION-->
+                    <Label Text="ОПИСАНИЕ"
+                       Grid.Column="1" Grid.Row="6"
+                       Style="{StaticResource InputHeaderLabel}"/>
+                    <Image Grid.Column="0" Grid.Row="7" Source="icons8_text_box_24_faint.png" VerticalOptions="Center"/>
+                    <Frame 
+                        Grid.Column="1" Grid.Row="7" 
+                        IsClippedToBounds="true" 
+                        CornerRadius="5" 
+                        Padding="1,-5" 
+                        BackgroundColor="{StaticResource InputFieldBackgroundColor}" 
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="Fill"
+                        HasShadow="False">
+
+                        <controls:StandardEditor
+                            Text="{Binding Description, Mode=TwoWay}"                        
+                            FontSize="Subtitle" 
+                            TextColor="{StaticResource BrightTextColor}"
+                            BackgroundColor="{StaticResource InputFieldBackgroundColor}"
+                            BorderThickness="0"/>
+
+                    </Frame>
+                </Grid>
+
+                <!--BUTTONS-->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" HeightRequest="36">
+                    <Button Text="СОХРАНИТЬ"
+                        Command="{Binding SaveCommand}" 
+                        BackgroundColor="{StaticResource AccentBlueColor}"
+                        ImageSource="icons8_save_24_bright"
+                        Style="{StaticResource StandardButton}"
+                        HorizontalOptions="FillAndExpand"/>
+                    <Button Clicked="DeleteClicked"  
+                        BackgroundColor="{StaticResource AccentRedColor}"
+                        ImageSource="icons8_trash_24_bright"
+                        Style="{StaticResource StandardButton}"
+                        HorizontalOptions="End" 
+                        Margin="5,0,0,0"
+                        IsVisible="{Binding IsDeleteButtonVisible}"/>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+    
+</ContentPage>
