@@ -23,18 +23,6 @@
             <Label>
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Графика: " TextColor="{StaticResource BrightTextColor}"/>
-                        <controls:HyperlinkSpan 
-                            Text="icons8"
-                            Url="https://icons8.com/" 
-                            TextColor="{StaticResource AccentRedColor}"/>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-
-            <Label>
-                <Label.FormattedText>
-                    <FormattedString>
                         <Span Text="База данных: " TextColor="{StaticResource BrightTextColor}"/>
                         <controls:HyperlinkSpan 
                             Text="SQLite"
