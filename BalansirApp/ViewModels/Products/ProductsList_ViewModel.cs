@@ -31,7 +31,7 @@ namespace BalansirApp.ViewModels.ItemReferences
         public override string ItemChanged_EventName => Consts.ProductsChanged_EventName;
 
         // CTOR
-        public ProductsList_ViewModel(ISettings settings, IProductsService entityService)
+        public ProductsList_ViewModel(ISettingsProvider settings, IProductsService entityService)
             : base(settings, entityService)
         {
             this.ResetFilterCommand = new Command(() => ResetFilter());

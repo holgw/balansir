@@ -44,9 +44,11 @@ namespace BalansirApp
 
             services.SetupCore();
 
-            services.AddSingleton<ISettings, Settings>();
+            services.AddSingleton<ISettingsProvider, Settings>();
             services.AddSingleton(x => DependencyService.Resolve<IAppFilesLocator>());
+            services.AddSingleton(x => DependencyService.Resolve<IAppVersionProvider>());
 
+            services.AddTransient<Shell_ViewModel>();
             services.AddTransient<ActEdit_ViewModel>();
             services.AddTransient<ActsList_ViewModel>();
             services.AddTransient<ProductEdit_ViewModel>();

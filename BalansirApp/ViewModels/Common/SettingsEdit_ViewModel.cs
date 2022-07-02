@@ -6,7 +6,7 @@ namespace BalansirApp.ViewModels.Common
 {
     public class SettingsEdit_ViewModel : BaseViewModel
     {       
-        private readonly ISettings _source;
+        private readonly ISettingsProvider _source;
 
         private int _historyDaysCount;
         private int _pageSize;
@@ -40,7 +40,7 @@ namespace BalansirApp.ViewModels.Common
         public Command CancelCommand { get; }
 
         // CTOR
-        public SettingsEdit_ViewModel(ISettings source)
+        public SettingsEdit_ViewModel(ISettingsProvider source)
         {
             _source = source ?? throw new ArgumentNullException(nameof(source));
 

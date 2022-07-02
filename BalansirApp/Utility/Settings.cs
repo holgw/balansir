@@ -7,7 +7,7 @@ namespace BalansirApp.Utility
     /// Универсальный класс для хранени янастроек приложения
     /// (базируется на Xamarin.Essentials.Preferences)
     /// </summary>
-    public class Settings : ISettings
+    public class Settings : ISettingsProvider
     {
         public int HistoryDaysCount
         {

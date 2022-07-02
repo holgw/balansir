@@ -14,7 +14,7 @@ namespace BalansirApp.ViewModels.Common
         where TRecord : DbRecord, new()
         where TParam : BaseQueryParam
     {
-        protected readonly ISettings _settings;
+        protected readonly ISettingsProvider _settings;
         protected readonly IEntityService<TRecordView, TParam> _entityService;
 
         int totalItemsCount;
@@ -64,7 +64,7 @@ namespace BalansirApp.ViewModels.Common
         public abstract string ItemChanged_EventName { get; }
 
         // CTOR
-        public EntityList_ViewModel(ISettings settings, IEntityService<TRecordView, TParam> entityService)
+        public EntityList_ViewModel(ISettingsProvider settings, IEntityService<TRecordView, TParam> entityService)
         {
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
             _entityService = entityService ?? throw new ArgumentNullException(nameof(entityService));

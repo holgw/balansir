@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using BalansirApp.ViewModels.Common;
+using Xamarin.Forms;
 
 namespace BalansirApp
 {
@@ -7,6 +8,7 @@ namespace BalansirApp
         public AppShell()
         {
             InitializeComponent();
+            this.BindingContext = App.GetViewModel<Shell_ViewModel>();
         }
     }
 }

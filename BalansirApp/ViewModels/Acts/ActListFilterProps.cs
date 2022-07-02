@@ -13,7 +13,7 @@ namespace BalansirApp.ViewModels.Acts
         public DateTime End { get; set; }
         public int? ProductId { get; set; }
 
-        public static ActListFilterProps GetDefault(ISettings settings)
+        public static ActListFilterProps GetDefault(ISettingsProvider settings)
         {
             DateTime end = DateTime.Now.GetDayDate().AddDays(1);
             DateTime start = end.AddDays(-settings.HistoryDaysCount);

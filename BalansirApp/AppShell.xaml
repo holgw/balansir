@@ -83,7 +83,7 @@
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>-->
 
-    <MenuItem Text="BALANSIR" StyleClass="MenuItemLayoutStyle"/>
+    <MenuItem Text="{Binding AppName}" StyleClass="MenuItemLayoutStyle"/>
     <FlyoutItem Title="Склад" Icon="icons8_big_parcel_24_bright">
         <ShellContent ContentTemplate="{DataTemplate local:ProductsListView_Page}" />
     </FlyoutItem>

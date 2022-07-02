@@ -1,6 +1,6 @@
 ﻿namespace BalansirApp.Core.Common.DataAccess
 {
-    public interface ISettings
+    public interface ISettingsProvider
     {
         int HistoryDaysCount { get; set; }
         int PageSize { get; set; }

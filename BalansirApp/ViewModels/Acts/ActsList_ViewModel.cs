@@ -62,7 +62,7 @@ namespace BalansirApp.ViewModels.Acts
 
         // CTOR
         public ActsList_ViewModel(
-            ISettings settings,
+            ISettingsProvider settings,
             IActsService entityService,
             IProductsService productsService)
             : base(settings, entityService)
