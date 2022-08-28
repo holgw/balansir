@@ -1,10 +1,10 @@
-﻿using BalansirApp.Core.Common.DataAccess.Interfaces;
+﻿using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Common.DataAccess.Interfaces;
 using BalansirApp.Core.Products;
 using BalansirApp.Core.Products.DataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
-using SQLite;
 
 namespace Tests.DbTests
 {

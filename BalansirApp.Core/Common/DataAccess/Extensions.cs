@@ -1,13 +1,14 @@
 ﻿using BalansirApp.Core.Common.DataAccess.Interfaces;
-using SQLite;
+using LinqToDB;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BalansirApp.Core.Common.DataAccess
 {
     public static class Extensions
     {
-        public static TableQuery<T> GetPage<T>(this TableQuery<T> q, int pageSize, int page)
+        public static IQueryable<T> GetPage<T>(this IQueryable<T> q, int pageSize, int page)
         {
             return q.Skip((page - 1) * pageSize).Take(pageSize);
         }
@@ -25,9 +26,21 @@ namespace BalansirApp.Core.Common.DataAccess
         public static void ExecuteDbConnection(this IAppFilesLocator appFilesLocator, Action<SQLiteConnection> action)
         {
             string dbPath = appFilesLocator.GetDatabasePath();
-            using (var db = new SQLiteConnection(dbPath))
+            string connectionString = $"Data Source={dbPath};Version=3;";
+
+            using (var db = new SQLiteConnection(ProviderName.SQLite, connectionString))
             {
-                db.RunInTransaction(() => action(db));
+                db.BeginTransaction();
+                try
+                {
+                    action(db);
+                    db.CommitTransaction();
+                }
+                catch
+                {
+                    db.RollbackTransaction();
+                }
+
             }
         }
     }

@@ -4,7 +4,6 @@ using BalansirApp.Core.Domains.Acts;
 using BalansirApp.Core.Products;
 using BalansirApp.Core.Products.DataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SQLite;
 using System;
 using System.Linq;
 
@@ -42,7 +41,7 @@ namespace Tests.DbTests
             productsService.SaveEntity(productView1);
 
             // ASSERT
-            Assert.ThrowsException<SQLiteException>(() => productsService.SaveEntity(productView2));
+            Assert.ThrowsException<Exception>(() => productsService.SaveEntity(productView2));
         }
 
         [TestMethod, Description("Попытка создания двух продуктов с одинаковыми кодами")]
@@ -57,7 +56,7 @@ namespace Tests.DbTests
             productsService.SaveEntity(productView1);
 
             // ASSERT
-            Assert.ThrowsException<SQLiteException>(() => productsService.SaveEntity(productView2));
+            Assert.ThrowsException<Exception>(() => productsService.SaveEntity(productView2));
         }
 
         [TestMethod, Description("Удаление изделия и всех прикрепленных к нему актов")]

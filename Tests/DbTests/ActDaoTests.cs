@@ -1,9 +1,9 @@
 ﻿using BalansirApp.Core.Acts;
 using BalansirApp.Core.Acts.DataAccess;
+using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Common.DataAccess.Interfaces;
 using BalansirApp.Core.Domains.Acts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SQLite;
 using System;
 using System.Linq;
 

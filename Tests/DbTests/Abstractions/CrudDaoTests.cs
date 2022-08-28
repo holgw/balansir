@@ -1,7 +1,6 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Common.DataAccess.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SQLite;
 
 namespace Tests.DbTests
 {

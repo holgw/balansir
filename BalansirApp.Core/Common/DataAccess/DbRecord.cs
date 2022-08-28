@@ -1,10 +1,10 @@
-﻿using SQLite;
+﻿using LinqToDB.Mapping;
 
 namespace BalansirApp.Core.Common.DataAccess
 {
     public abstract class DbRecord : IIdentifier
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey,Column(IsIdentity = true, SkipOnInsert = true)]
         public int Id { get; set; }
 
         // METHODS: Public

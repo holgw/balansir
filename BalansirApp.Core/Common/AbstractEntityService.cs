@@ -1,5 +1,4 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
-using SQLite;
 using System;
 
 namespace BalansirApp.Core.Common

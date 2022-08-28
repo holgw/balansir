@@ -1,5 +1,5 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
-using SQLite;
+using LinqToDB.Mapping;
 using System;
 
 namespace BalansirApp.Core.Acts
@@ -10,21 +10,21 @@ namespace BalansirApp.Core.Acts
         /// <summary>
         /// Дата и время создания акта
         /// </summary>
-        [Indexed] public DateTime TimeStamp { get; set; }
+        [Column] public DateTime TimeStamp { get; set; }
 
         /// <summary>
         /// Ссылка на продукт
         /// </summary>
-        [Indexed] public int ProductId { get; set; }
+        [Column] public int ProductId { get; set; }
 
         /// <summary>
         /// Кол-во единиц продукции прихода\расхода 
         /// </summary>
-        public decimal Delta { get; set; }
+        [Column] public decimal Delta { get; set; }
 
         /// <summary>
         /// Комментарий к акту
         /// </summary>
-        public string Comment { get; set; }
+        [Column] public string Comment { get; set; }
     }
 }

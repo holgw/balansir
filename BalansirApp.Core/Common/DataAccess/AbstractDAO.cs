@@ -1,9 +1,25 @@
-﻿using BalansirApp.Core.Common.DataAccess.Interfaces;
-using SQLite;
+﻿using BalansirApp.Core.Acts;
+using BalansirApp.Core.Common.DataAccess.Interfaces;
+using BalansirApp.Core.Products;
+using LinqToDB;
+using LinqToDB.Data;
 using System;
+using System.Linq;
 
 namespace BalansirApp.Core.Common.DataAccess
 {
+    public class SQLiteConnection : DataConnection
+    {
+        public ITable<Product> Products => this.GetTable<Product>();
+        public ITable<Act> Acts => this.GetTable<Act>();
+
+        // CTOR
+        public SQLiteConnection(string providerName, string connectionString) 
+            : base(providerName, connectionString) 
+        { 
+        }
+    }
+
     /// <summary>
     /// Абстрактный класс для доступа к таблице к БД 
     /// (create\read\update\delete)
@@ -14,7 +30,7 @@ namespace BalansirApp.Core.Common.DataAccess
     {
         protected readonly SQLiteConnection _db;
 
-        protected virtual TableQuery<T> Table => _db.Table<T>();
+        protected abstract ITable<T> Table { get; }
 
         // CTOR
         public AbstractDAO(SQLiteConnection db)
@@ -46,11 +62,11 @@ namespace BalansirApp.Core.Common.DataAccess
         }
         public T TryGet(int id)
         {
-            return _db.Find<T>(id);
+            return this.Table.FirstOrDefault(x => x.Id == id);
         }
         public int Delete(int id)
         {
-            return _db.Delete<T>(id);
+            return this.Table.Delete(x => x.Id == id);
         }
         public int Save(T item, bool insertStrict = false)
         {
@@ -61,14 +77,15 @@ namespace BalansirApp.Core.Common.DataAccess
             }
             else
             {
-                return _db.Insert(item);
+                item.Id = _db.InsertWithInt32Identity(item);
+                return item.Id;
             }
         }
 
         // METHODS: Protected
-        protected virtual TableQuery<T> Query(P queryParam)
+        protected virtual IQueryable<T> Query(P queryParam)
         {
-            return Table;
+            return this.Table;
         }
     }
 }

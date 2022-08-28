@@ -1,6 +1,7 @@
 ﻿using BalansirApp.Core.Acts;
 using BalansirApp.Core.Common.DataAccess.Interfaces;
 using BalansirApp.Core.Products;
+using LinqToDB;
 
 namespace BalansirApp.Core.Common.DataAccess
 {
