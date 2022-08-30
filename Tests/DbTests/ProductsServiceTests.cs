@@ -1,10 +1,14 @@
 ﻿using BalansirApp.Core.Acts;
 using BalansirApp.Core.Common;
+using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Common.DataAccess.Interfaces;
 using BalansirApp.Core.Domains.Acts;
 using BalansirApp.Core.Products;
 using BalansirApp.Core.Products.DataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace Tests.DbTests
@@ -109,6 +113,32 @@ namespace Tests.DbTests
         protected override IEntityService<ProductView, ProductsQueryParam> GetService()
         {
             return new ProductsService(_appFilesLocator);
+        }
+    }
+
+    [TestClass]
+    public class TestDbUpdate
+    {
+        string _dbPath = Path.Combine(Environment.CurrentDirectory, "dbMainTest.db");
+        protected IAppFilesLocator _appFilesLocator;
+        protected IDbMaintainService _dbMaintainService;
+
+        [TestInitialize]
+        public virtual void Startup()
+        {
+            var appFilesLocatorMock = new Mock<IAppFilesLocator>();
+            appFilesLocatorMock.Setup(x => x.GetDatabasePath()).Returns(_dbPath);
+            _appFilesLocator = appFilesLocatorMock.Object;
+
+            // Создадим новый файл БД со структурой данных
+            _dbMaintainService = new DbMaintainService(_appFilesLocator);
+            _dbMaintainService.InitializeDatabase();
+        }
+
+        [TestMethod]
+        public void Test1()
+        {
+            
         }
     }
 }
