@@ -36,11 +36,13 @@ namespace BalansirApp.Core.Common.DataAccess
             // то файл будет создан автоматически
             _appFilesLocator.ExecuteDbConnection(db =>
             {
+               
                 // Создадим таблицы в БД, если их не существует
                 //db.CreateTable<Product>();
                 //db.CreateTable<Act>();
-                var result = db.Execute($"CREATE UNIQUE INDEX IF NOT EXISTS ProductSet_Name on ProductSet(Name);");
+                //var result = db.Execute($"CREATE UNIQUE INDEX IF NOT EXISTS ProductSet_Name on ProductSet(Name);");
 
+                // TODO: Мб лог исключений из DDL должен быть общим для всех DDL?
                 var dbManager = new MigrationsManager(db);
                 dbManager.CheckAndApplyMigrations();
             });
