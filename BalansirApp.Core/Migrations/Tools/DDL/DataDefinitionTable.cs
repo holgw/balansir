@@ -1,10 +1,12 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Migrations.Tools.DDL.Extensions;
+using BalansirApp.Core.Migrations.Tools.DDL.Utility;
 using BalansirApp.Core.Migrations.Tools.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace BalansirApp.Core.Migrations.Tools
+namespace BalansirApp.Core.Migrations.Tools.DDL
 {
     class DataDefinitionTable<TTable> : IDataDefinitionTable<TTable>
     {
@@ -32,14 +34,14 @@ namespace BalansirApp.Core.Migrations.Tools
                 isAutoincrement,
                 isNotNull
             );
-            return this.BaseMethod(func);
+            return BaseMethod(func);
         }
 
         public IDataDefinitionTable<TTable> AddIndex<TColumn>(
             Expression<Func<TTable, TColumn>> propertyLambda,
             bool isUnique = false)
         {
-            return this.BaseMethod(() => _db.AddIndex(propertyLambda, isUnique));
+            return BaseMethod(() => _db.AddIndex(propertyLambda, isUnique));
         }
 
         DataDefinitionTable<TTable> BaseMethod(Func<Exception> func)
@@ -47,7 +49,7 @@ namespace BalansirApp.Core.Migrations.Tools
             var newException = func();
 
             if (newException != null)
-                this.Exceptions.Add(newException);
+                Exceptions.Add(newException);
 
             return this;
         }

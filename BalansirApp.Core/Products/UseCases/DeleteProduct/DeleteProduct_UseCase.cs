@@ -4,9 +4,9 @@ using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Products.DataAccess.Interfaces;
 using System;
 
-namespace BalansirApp.Core.Products.UseCases
+namespace BalansirApp.Core.Products.UseCases.DeleteProduct
 {
-    class DeleteProduct_UseCase
+    class DeleteProduct_UseCase : IDeleteProduct_UseCase
     {
         private readonly IProductDAO _productDAO;
         private readonly IActDAO _actDAO;

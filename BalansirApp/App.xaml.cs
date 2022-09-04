@@ -1,6 +1,7 @@
 ﻿using BalansirApp.Core;
 using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Common.DataAccess.Interfaces;
+using BalansirApp.Core.Migrations.Tools.Interfaces;
 using BalansirApp.Utility;
 using BalansirApp.ViewModels.Acts;
 using BalansirApp.ViewModels.Common;
@@ -21,8 +22,8 @@ namespace BalansirApp
             InitializeComponent();
             this.SetupServices();
 
-            var dbMaintainService = ServiceProvider.GetService<IDbMaintainService>();
-            dbMaintainService.InitializeDatabase();
+            var migrationsManager = ServiceProvider.GetService<IDbMigrationsManager>();
+            migrationsManager.CheckAndApplyMigrations();
 
             this.MainPage = new AppShell();
         }

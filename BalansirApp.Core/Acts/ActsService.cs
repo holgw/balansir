@@ -4,6 +4,7 @@ using BalansirApp.Core.Common;
 using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Domains.Acts;
 using BalansirApp.Core.Products.DataAccess;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BalansirApp.Core.Acts
 {
@@ -15,11 +16,12 @@ namespace BalansirApp.Core.Acts
         {
         }
 
-        // METHODS: Public
-        public override ItemsPageQueryResult<ActView, ActsQueryParam> GetEntityListView(ActsQueryParam queryParam)
+        // METHODS: Protected
+        protected override ItemsPageQueryResult<ActView, ActsQueryParam> GetEntityListViewAction(IServiceScope serviceScope, ActsQueryParam queryParam)
         {
             ItemsPageQueryResult<ActView, ActsQueryParam> result = null;
 
+            serviceScope.ServiceProvider.GetService<>
             _appFilesLocator.ExecuteDbConnection(db =>
             {
                 var actDAO = new ActDAO(db);

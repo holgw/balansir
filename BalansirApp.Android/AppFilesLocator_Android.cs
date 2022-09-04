@@ -9,11 +9,13 @@ namespace BalansirApp.Droid
 {
     public class AppFilesLocator_Android : IAppFilesLocator
     {
+        public string DbName => "dbMain";
+
+        public string DbFolder => Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
         public string GetDatabasePath()
         {
-            string dbName = "dbMain";
-            string dbFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            string path = Path.Combine(dbFolder, dbName);
+            string path = Path.Combine(this.DbFolder, this.DbName);
 
             return path;
         }

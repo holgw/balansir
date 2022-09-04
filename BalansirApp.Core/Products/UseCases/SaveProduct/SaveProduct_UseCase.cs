@@ -1,9 +1,9 @@
 ﻿using BalansirApp.Core.Products.DataAccess.Interfaces;
 using System;
 
-namespace BalansirApp.Core.Products.UseCases
+namespace BalansirApp.Core.Products.UseCases.SaveProduct
 {
-    class SaveProduct_UseCase
+    class SaveProduct_UseCase : ISaveProduct_UseCase
     {
         private readonly IProductDAO _productDAO;
 

@@ -1,11 +1,12 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Migrations.Tools.DDL.Utility;
 using LinqToDB.Data;
 using LinqToDB.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace BalansirApp.Core.Migrations.Tools
+namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
 {
     /// <summary>
     /// Расширения для вызова базовых команд SQLite DDL

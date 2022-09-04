@@ -2,13 +2,14 @@
 using BalansirApp.Core.Common.UseCases;
 using BalansirApp.Core.Products.DataAccess;
 
-namespace BalansirApp.Core.Products.UseCases
+namespace BalansirApp.Core.Products.UseCases.GetProductsListView
 {
-    class GetProductView_UseCase :
-        AbstractGetView_UseCase<Product, ProductView, ProductsQueryParam>
+    class GetProductsListView_UseCase :
+        AbstractGetListView_UseCase<Product, ProductView, ProductsQueryParam>,
+        IGetProductsListView_UseCase
     {
         // CTOR
-        public GetProductView_UseCase(IDAO<Product, ProductsQueryParam> dao) :
+        public GetProductsListView_UseCase(IDAO<Product, ProductsQueryParam> dao) :
             base(dao)
         {
         }

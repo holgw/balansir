@@ -3,12 +3,12 @@ using BalansirApp.Core.Domains.Acts;
 using BalansirApp.Core.Products.DataAccess.Interfaces;
 using System;
 
-namespace BalansirApp.Core.Acts.UseCases
+namespace BalansirApp.Core.Acts.UseCases.SaveAct
 {
     /// <summary>
     /// Создание нового акта с кешированием остатков продукции на складе
     /// </summary>
-    class SaveAct_UseCase
+    class SaveAct_UseCase : ISaveAct_UseCase
     {
         private readonly IActDAO _actDAO;
         private readonly IProductDAO _productDAO;

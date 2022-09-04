@@ -1,9 +1,10 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Migrations.Tools.DDL.Extensions;
 using BalansirApp.Core.Migrations.Tools.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace BalansirApp.Core.Migrations.Tools
+namespace BalansirApp.Core.Migrations.Tools.DDL
 {
     class DataDefinitionBase : IDataDefinitionBase
     {
@@ -22,7 +23,7 @@ namespace BalansirApp.Core.Migrations.Tools
             var newException = _db.AddTable<TTable>();
 
             if (newException != null)
-                this.Exceptions.Add(newException);
+                Exceptions.Add(newException);
 
             return new DataDefinitionTable<TTable>(_db);
         }

@@ -1,19 +1,20 @@
 ﻿using BalansirApp.Core.Acts.DataAccess;
-using BalansirApp.Core.Common.DataAccess.Interfaces;
+using BalansirApp.Core.Acts.DataAccess.Interfaces;
 using BalansirApp.Core.Common.UseCases;
 using BalansirApp.Core.Domains.Acts;
 using BalansirApp.Core.Products.DataAccess.Interfaces;
 using System;
 
-namespace BalansirApp.Core.Acts.UseCases
+namespace BalansirApp.Core.Acts.UseCases.GetActsListView
 {
-    class GetActView_UseCase :
-        AbstractGetView_UseCase<Act, ActView, ActsQueryParam>
+    class GetActsListView_UseCase :
+        AbstractGetListView_UseCase<Act, ActView, ActsQueryParam>,
+        IGetActsListView_UseCase
     {
         private readonly IProductDAO _productDao;
 
         // CTOR
-        public GetActView_UseCase(IDAO<Act, ActsQueryParam> dao, IProductDAO productDao) :
+        public GetActsListView_UseCase(IActDAO dao, IProductDAO productDao) :
             base(dao)
         {
             _productDao = productDao ?? throw new ArgumentNullException(nameof(productDao));

@@ -1,6 +1,6 @@
 ﻿namespace BalansirApp.Core.Migrations.Tools.Interfaces
 {
-    internal interface IMigrationsManager
+    public interface IDbMigrationsManager
     {
         void CheckAndApplyMigrations();
     }
