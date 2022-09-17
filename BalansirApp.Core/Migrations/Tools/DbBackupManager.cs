@@ -16,7 +16,7 @@ namespace BalansirApp.Core.Migrations.Tools
 
         public void BackupFile()
         {
-            string originFilePath = _appFilesLocator.GetDatabasePath();
+            string originFilePath = _appFilesLocator.DbPath;
             string backupFilePath = this.GetBackupFilePath();
 
             File.Copy(originFilePath, backupFilePath);
@@ -24,7 +24,7 @@ namespace BalansirApp.Core.Migrations.Tools
 
         string GetBackupFilePath()
         {
-            string originPath = _appFilesLocator.GetDatabasePath();
+            string originPath = _appFilesLocator.DbPath;
             string timeStamp = DateTime.Now.ToString("dd_MM_yyyy_HH-mm-ss");
             return $"{originPath}_{timeStamp}";
         }

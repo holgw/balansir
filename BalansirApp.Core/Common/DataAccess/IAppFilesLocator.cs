@@ -11,6 +11,8 @@
 
         string DbFolder { get; }
 
-        string GetDatabasePath();
+        string DbPath { get; }
+
+        string ConnectionString { get; }
     }
 }

@@ -1,31 +1,133 @@
-﻿using BalansirApp.Core.Common.DataAccess;
-using BalansirApp.Core.Common.DataAccess.Interfaces;
+﻿using BalansirApp.Core;
+using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Migrations.Tools.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace Tests.DbTests
 {
     public abstract class DaoTests<TRecord, TView, TParam>
         where TParam : BaseQueryParam
     {
-        string _dbPath = Path.Combine(Environment.CurrentDirectory, "dbMainTest.db");
-        protected IAppFilesLocator _appFilesLocator;
-        protected IDbMaintainService _dbMaintainService;
+        protected static IServiceProvider ServiceProvider { get; set; }
 
         [TestInitialize]
         public virtual void Startup()
         {
-            File.Delete(_dbPath);
-            
-            var appFilesLocatorMock = new Mock<IAppFilesLocator>();
-            appFilesLocatorMock.Setup(x => x.GetDatabasePath()).Returns(_dbPath);
-            _appFilesLocator = appFilesLocatorMock.Object;
+            if (ServiceProvider != null)
+            {
+                ServiceProvider = null;
+                GC.Collect();
+            }
 
-            // Создадим новый файл БД со структурой данных
-            _dbMaintainService = new DbMaintainService(_appFilesLocator);
-            _dbMaintainService.InitializeDatabase();
+            Thread.Sleep(10000);
+
+            var services = new ServiceCollection();
+            services.AddSingleton<IAppFilesLocator, AppFilesLocator_Test>(); 
+            services.SetupCore();
+            ServiceProvider = services.BuildServiceProvider();
+
+            File.Delete(ServiceProvider.GetService<IAppFilesLocator>().DbPath);
+
+            var migrationsManager = ServiceProvider.GetService<IDbMigrationsManager>();
+            migrationsManager.CheckAndApplyMigrations();
         }
-    }   
+    }
+
+    class AppFilesLocator_Test : BaseAppFilesLocator
+    {
+        public override string DbFolder => Environment.CurrentDirectory;
+    }
+
+    [TestClass]
+    public class ConnectionTests
+    {
+        protected static IServiceProvider ServiceProvider { get; set; }
+
+        [TestInitialize]
+        public virtual void Startup()
+        {
+            if (ServiceProvider != null)
+            {
+                ServiceProvider = null;
+                GC.Collect();
+            }
+
+            var services = new ServiceCollection();
+            services.AddSingleton<IAppFilesLocator, AppFilesLocator_Test>();
+            services.AddScoped<SQLiteConnection>();
+            ServiceProvider = services.BuildServiceProvider();
+
+            File.Delete(ServiceProvider.GetService<IAppFilesLocator>().DbPath);
+        }
+
+        [TestMethod]
+        public void Test1()
+        {
+            using (var scope = ServiceProvider.CreateScope())
+            {
+                using (var db = scope.ServiceProvider.GetService<SQLiteConnection>())
+                {
+                    db.BeginTransaction();
+                    try
+                    {
+                        Thread.Sleep(10);
+                        db.CommitTransaction();
+                    }
+                    catch
+                    {
+                        db.RollbackTransaction();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Test2()
+        {
+            using (var scope = ServiceProvider.CreateScope())
+            {
+                using (var db = scope.ServiceProvider.GetService<SQLiteConnection>())
+                {
+                    db.BeginTransaction();
+                    try
+                    {
+                        Thread.Sleep(10);
+                        db.CommitTransaction();
+                    }
+                    catch
+                    {
+                        db.RollbackTransaction();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Test4()
+        {
+            using (var scope = ServiceProvider.CreateScope())
+            {
+                using (var db = scope.ServiceProvider.GetService<SQLiteConnection>())
+                {
+                    db.BeginTransaction();
+                    try
+                    {
+                        Thread.Sleep(10);
+                        db.CommitTransaction();
+                    }
+                    catch
+                    {
+                        db.RollbackTransaction();
+                        throw;
+                    }
+                }
+            }
+        }
+    }
 }

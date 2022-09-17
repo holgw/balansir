@@ -1,14 +1,12 @@
 ﻿using BalansirApp.Core.Acts;
 using BalansirApp.Core.Common;
-using BalansirApp.Core.Common.DataAccess;
-using BalansirApp.Core.Common.DataAccess.Interfaces;
 using BalansirApp.Core.Domains.Acts;
 using BalansirApp.Core.Products;
 using BalansirApp.Core.Products.DataAccess;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System;
-using System.IO;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace Tests.DbTests
@@ -16,19 +14,32 @@ namespace Tests.DbTests
     [TestClass]
     public class ProductsServiceTests : AbstractEntityServiceTests<Product, ProductView, ProductsQueryParam>
     {
+        static IProductsService _productsService;
+        static IActsService _actsService;
+
+        [TestInitialize]
+        public override void Startup()
+        {
+            base.Startup();
+
+            _productsService = ServiceProvider.GetService<IProductsService>();
+            _actsService = ServiceProvider.GetService<IActsService>();
+        }
+
+        // ---
+
         [TestMethod, Description("Простое создание нового продукта")]
         public void CreateNewProduct_Test1()
         {
             // ARRANGE
-            var productsService = new ProductsService(_appFilesLocator);
             var productView = new ProductView() { Name = "N1", Code = "C1", Units = "U1", Description = "D1" };
 
             // ACT
-            productsService.SaveEntity(productView);
+            _productsService.SaveEntity(productView);
 
             // ASSERT
             Assert.AreNotSame(productView.Id, 0);
-            var productViewLoaded = productsService.GetEntityView(productView.Id);
+            var productViewLoaded = _productsService.GetEntityView(productView.Id);
             Assert.IsNotNull(productViewLoaded);
             Assert.AreEqual(productView.Name, productViewLoaded.Name);
         }
@@ -37,50 +48,46 @@ namespace Tests.DbTests
         public void CreateNewProduct_Test2()
         {
             // ARRANGE
-            var productsService = new ProductsService(_appFilesLocator);
             var productView1 = new ProductView() { Name = "N1", Code = "C1", Units = "U1", Description = "D1" };
             var productView2 = new ProductView() { Name = "N1", Code = "C2", Units = "U2", Description = "D2" };
 
             // ACT
-            productsService.SaveEntity(productView1);
+            _productsService.SaveEntity(productView1);
 
             // ASSERT
-            Assert.ThrowsException<Exception>(() => productsService.SaveEntity(productView2));
+            Assert.ThrowsException<SQLiteException>(() => _productsService.SaveEntity(productView2));
         }
 
         [TestMethod, Description("Попытка создания двух продуктов с одинаковыми кодами")]
         public void CreateNewProduct_Test3()
         {
             // ARRANGE
-            var productsService = new ProductsService(_appFilesLocator);
             var productView1 = new ProductView() { Name = "N1", Code = "C1", Units = "U1", Description = "D1" };
             var productView2 = new ProductView() { Name = "N2", Code = "C1", Units = "U2", Description = "D2" };
 
             // ACT
-            productsService.SaveEntity(productView1);
+            _productsService.SaveEntity(productView1);
 
             // ASSERT
-            Assert.ThrowsException<Exception>(() => productsService.SaveEntity(productView2));
+            Assert.ThrowsException<SQLiteException>(() => _productsService.SaveEntity(productView2));
         }
 
         [TestMethod, Description("Удаление изделия и всех прикрепленных к нему актов")]
         public void DeleteProduct_Test()
         {
             // ARRANGE
-            var productsService = new ProductsService(_appFilesLocator);
             var productView = new ProductView() { Name = "N1", Code = "C1", Units = "U1", Description = "D1" };
-            productsService.SaveEntity(productView);
+            _productsService.SaveEntity(productView);
 
-            var actsService = new ActsService(_appFilesLocator);
             var actView = new ActView() { TimeStamp = DateTime.Now, ProductId = productView.Id, Delta = +15 };
-            actsService.SaveEntity(actView);
+            _actsService.SaveEntity(actView);
 
             // ACT
-            productsService.DeleteEntity(productView);
+            _productsService.DeleteEntity(productView);
 
             // ASSERT
-            Assert.IsNull(actsService.GetEntityView(actView.Id));
-            Assert.IsNull(productsService.GetEntityView(productView.Id));
+            Assert.IsNull(_actsService.GetEntityView(actView.Id));
+            Assert.IsNull(_productsService.GetEntityView(productView.Id));
         }
 
         // METHODS: Protected
@@ -112,33 +119,33 @@ namespace Tests.DbTests
         }
         protected override IEntityService<ProductView, ProductsQueryParam> GetService()
         {
-            return new ProductsService(_appFilesLocator);
+            return _productsService;
         }
     }
 
-    [TestClass]
-    public class TestDbUpdate
-    {
-        string _dbPath = Path.Combine(Environment.CurrentDirectory, "dbMainTest.db");
-        protected IAppFilesLocator _appFilesLocator;
-        protected IDbMaintainService _dbMaintainService;
+    //[TestClass]
+    //public class TestDbUpdate
+    //{
+    //    string _dbPath = Path.Combine(Environment.CurrentDirectory, "dbMainTest.db");
+    //    protected IAppFilesLocator _appFilesLocator;
+    //    protected IDbMaintainService _dbMaintainService;
 
-        [TestInitialize]
-        public virtual void Startup()
-        {
-            var appFilesLocatorMock = new Mock<IAppFilesLocator>();
-            appFilesLocatorMock.Setup(x => x.GetDatabasePath()).Returns(_dbPath);
-            _appFilesLocator = appFilesLocatorMock.Object;
+    //    [TestInitialize]
+    //    public virtual void Startup()
+    //    {
+    //        var appFilesLocatorMock = new Mock<IAppFilesLocator>();
+    //        appFilesLocatorMock.Setup(x => x.GetDatabasePath()).Returns(_dbPath);
+    //        _appFilesLocator = appFilesLocatorMock.Object;
 
-            // Создадим новый файл БД со структурой данных
-            _dbMaintainService = new DbMaintainService(_appFilesLocator);
-            _dbMaintainService.InitializeDatabase();
-        }
+    //        // Создадим новый файл БД со структурой данных
+    //        _dbMaintainService = new DbMaintainService(_appFilesLocator);
+    //        _dbMaintainService.InitializeDatabase();
+    //    }
 
-        [TestMethod]
-        public void Test1()
-        {
+    //    [TestMethod]
+    //    public void Test1()
+    //    {
             
-        }
-    }
+    //    }
+    //}
 }

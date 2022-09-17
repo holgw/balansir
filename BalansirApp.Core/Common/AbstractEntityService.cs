@@ -47,7 +47,20 @@ namespace BalansirApp.Core.Common
         {
             using (var scope = _serviceProvider.CreateScope())
             {
-                action(scope);
+                using (var db = scope.ServiceProvider.GetService<SQLiteConnection>())
+                {
+                    db.BeginTransaction();
+                    try
+                    {
+                        action(scope);
+                        db.CommitTransaction();
+                    }
+                    catch
+                    {
+                        db.RollbackTransaction();
+                        throw;
+                    }
+                }                
             }
         }
     }

@@ -3,6 +3,7 @@ using BalansirApp.Core.Acts.DataAccess;
 using BalansirApp.Core.Common;
 using BalansirApp.Core.Domains.Acts;
 using BalansirApp.Core.Products;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
@@ -12,21 +13,32 @@ namespace Tests.DbTests
     [TestClass]
     public class ActsServiceTests : AbstractEntityServiceTests<Act, ActView, ActsQueryParam>
     {
+        static IProductsService _productsService;
+        static IActsService _actsService;
+
+        [TestInitialize]
+        public override void Startup()
+        {
+            base.Startup();
+
+            _productsService = ServiceProvider.GetService<IProductsService>();
+            _actsService = ServiceProvider.GetService<IActsService>();
+        }
+
+        // ---
+
         [TestMethod]
         public void CreateNewAct_Test()
         {                        
             // ARRANGE
-            var productsService = new ProductsService(_appFilesLocator);
             var productView = new ProductView() { Name = "N1", Code = "C1", Units = "U1", Description = "D1" };
-            productsService.SaveEntity(productView);            
 
             // ACT
-            var actsService = new ActsService(_appFilesLocator);
             var actView = new ActView() { TimeStamp = DateTime.Now, ProductId = productView.Id, Delta = +15 };
-            actsService.SaveEntity(actView);
+            _actsService.SaveEntity(actView);
 
             // ASSERT
-            productView = productsService.GetEntityView(productView.Id);
+            productView = _productsService.GetEntityView(productView.Id);
             Assert.AreEqual(productView.Balance, 15);
         }
 
@@ -34,30 +46,27 @@ namespace Tests.DbTests
         public void DeleteAct_Test()
         {
             // ARRANGE
-            var productsService = new ProductsService(_appFilesLocator);            
             var productView = new ProductView() { Name = "N1", Code = "C1", Units = "U1", Description = "D1" };
-            productsService.SaveEntity(productView);
+            _productsService.SaveEntity(productView);
 
-            var actsService = new ActsService(_appFilesLocator);
             var actView = new ActView() { TimeStamp = DateTime.Now, ProductId = productView.Id, Delta = +15 };
-            actsService.SaveEntity(actView);
+            _actsService.SaveEntity(actView);
 
             // ACT
-            actsService.DeleteEntity(actView);
+            _actsService.DeleteEntity(actView);
 
             // ASSERT
-            productView = productsService.GetEntityView(productView.Id);
+            productView = _productsService.GetEntityView(productView.Id);
             Assert.AreEqual(productView.Balance, 0);
-            actView = actsService.GetEntityView(actView.Id);
+            actView = _actsService.GetEntityView(actView.Id);
             Assert.IsNull(actView);
         }
 
         // METHODS: Protected
         protected override ActView GetItemForCreate()
         {
-            var productsService = new ProductsService(_appFilesLocator);
             var productView = new ProductView() { Name = "N1", Code = "C1", Units = "U1", Description = "D1" };
-            productsService.SaveEntity(productView);
+            _productsService.SaveEntity(productView);
 
             return new ActView { TimeStamp = DateTime.Now, ProductId = 1, Delta = +15 };
         }
@@ -82,7 +91,7 @@ namespace Tests.DbTests
         }
         protected override IEntityService<ActView, ActsQueryParam> GetService()
         {
-            return new ActsService(_appFilesLocator);
+            return _actsService;
         }
     }
 }

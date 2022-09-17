@@ -80,6 +80,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppFilesLocator_Android.cs" />
     <Compile Include="Effects\RoundCornersEffectDroid.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\RoundBorderDatePickerRendererDroid.cs" />

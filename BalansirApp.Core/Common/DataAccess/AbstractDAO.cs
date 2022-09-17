@@ -1,29 +1,10 @@
-﻿using BalansirApp.Core.Acts;
-using BalansirApp.Core.Common.DataAccess.Interfaces;
-using BalansirApp.Core.Migrations.Tools;
-using BalansirApp.Core.Migrations.Tools.Interfaces;
-using BalansirApp.Core.Products;
+﻿using BalansirApp.Core.Common.DataAccess.Interfaces;
 using LinqToDB;
-using LinqToDB.Data;
 using System;
 using System.Linq;
 
 namespace BalansirApp.Core.Common.DataAccess
 {
-    public class SQLiteConnection : DataConnection
-    {
-        public IDataDefinitionBase DataDefinitionBase { get; }
-        public ITable<Product> Products => this.GetTable<Product>();
-        public ITable<Act> Acts => this.GetTable<Act>();
-
-        // CTOR
-        public SQLiteConnection(string providerName, string connectionString) 
-            : base(providerName, connectionString) 
-        {
-            this.DataDefinitionBase = new DataDefinitionBase(this);
-        }
-    }
-
     /// <summary>
     /// Абстрактный класс для доступа к таблице к БД 
     /// (create\read\update\delete)

@@ -3,6 +3,9 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using BalansirApp.Core.Common.DataAccess;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace BalansirApp.Droid
 {
@@ -17,7 +20,11 @@ namespace BalansirApp.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
-            LoadApplication(new App());
+
+            var services = new ServiceCollection();
+            services.AddSingleton<IAppFilesLocator, AppFilesLocator_Android>();            
+
+            LoadApplication(new App(services));
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

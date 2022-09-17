@@ -22,26 +22,5 @@ namespace BalansirApp.Core.Common.DataAccess
                 dao.Delete(record.Id);
             }
         }
-
-        public static void ExecuteDbConnection(this IAppFilesLocator appFilesLocator, Action<SQLiteConnection> action)
-        {
-            string dbPath = appFilesLocator.GetDatabasePath();
-            string connectionString = $"Data Source={dbPath};Version=3;";
-
-            using (var db = new SQLiteConnection(ProviderName.SQLite, connectionString))
-            {
-                db.BeginTransaction();
-                try
-                {
-                    action(db);
-                    db.CommitTransaction();
-                }
-                catch
-                {
-                    db.RollbackTransaction();
-                }
-
-            }
-        }
     }
 }

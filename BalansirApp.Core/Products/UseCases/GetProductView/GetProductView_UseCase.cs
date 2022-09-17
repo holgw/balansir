@@ -1,6 +1,7 @@
 ﻿using BalansirApp.Core.Common.DataAccess.Interfaces;
 using BalansirApp.Core.Common.UseCases;
 using BalansirApp.Core.Products.DataAccess;
+using BalansirApp.Core.Products.DataAccess.Interfaces;
 
 namespace BalansirApp.Core.Products.UseCases
 {
@@ -9,8 +10,7 @@ namespace BalansirApp.Core.Products.UseCases
         IGetProductView_UseCase
     {
         // CTOR
-        public GetProductView_UseCase(IDAO<Product, ProductsQueryParam> dao) :
-            base(dao)
+        public GetProductView_UseCase(IProductDAO dao) : base(dao)
         {
         }
 

@@ -1,6 +1,5 @@
 ﻿using BalansirApp.Core;
 using BalansirApp.Core.Common.DataAccess;
-using BalansirApp.Core.Common.DataAccess.Interfaces;
 using BalansirApp.Core.Migrations.Tools.Interfaces;
 using BalansirApp.Utility;
 using BalansirApp.ViewModels.Acts;
@@ -17,10 +16,10 @@ namespace BalansirApp
         protected static IServiceProvider ServiceProvider { get; set; }
 
         // CTOR
-        public App()
+        public App(ServiceCollection services)
         {
             InitializeComponent();
-            this.SetupServices();
+            this.SetupServices(services);
 
             var migrationsManager = ServiceProvider.GetService<IDbMigrationsManager>();
             migrationsManager.CheckAndApplyMigrations();
@@ -39,10 +38,8 @@ namespace BalansirApp
             return ServiceProvider.GetService<TViewModel>();
         }
 
-        void SetupServices()
+        public void SetupServices(ServiceCollection services)
         {
-            var services = new ServiceCollection();
-
             services.SetupCore();
 
             services.AddSingleton<ISettingsProvider, Settings>();
@@ -56,6 +53,7 @@ namespace BalansirApp
             services.AddTransient<ProductsList_ViewModel>();
             services.AddTransient<SettingsEdit_ViewModel>();
 
+            //services.AddSingleton<IServiceProvider>(x => App.ServiceProvider);
             ServiceProvider = services.BuildServiceProvider();
         }
     }

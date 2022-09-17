@@ -18,12 +18,12 @@ namespace Tests.DbTests
         {
             base.Startup();
 
-            _appFilesLocator.ExecuteDbConnection(db =>
-            {
-                var actDAO = new ActDAO(db);
-                var productDAO = new ProductDAO(db);
-                Data.Fill(productDAO, actDAO);
-            });
+            //_appFilesLocator.ExecuteDbConnection(db =>
+            //{
+            //    var actDAO = new ActDAO(db);
+            //    var productDAO = new ProductDAO(db);
+            //    Data.Fill(productDAO, actDAO);
+            //});
         }
 
         // ===
