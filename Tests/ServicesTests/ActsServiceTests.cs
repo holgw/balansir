@@ -7,8 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using Tests.ServicesTests.Abstractions;
 
-namespace Tests.DbTests
+namespace Tests.ServicesTests
 {
     [TestClass]
     public class ActsServiceTests : AbstractEntityServiceTests<Act, ActView, ActsQueryParam>
@@ -29,7 +30,7 @@ namespace Tests.DbTests
 
         [TestMethod]
         public void CreateNewAct_Test()
-        {                        
+        {
             // ARRANGE
             var productView = new ProductView() { Name = "N1", Code = "C1", Units = "U1", Description = "D1" };
             _productsService.SaveEntity(productView);

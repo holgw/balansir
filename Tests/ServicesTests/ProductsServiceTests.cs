@@ -8,8 +8,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Data.SQLite;
 using System.Linq;
+using Tests.ServicesTests.Abstractions;
 
-namespace Tests.DbTests
+namespace Tests.ServicesTests
 {
     [TestClass]
     public class ProductsServiceTests : AbstractEntityServiceTests<Product, ProductView, ProductsQueryParam>
@@ -145,7 +146,7 @@ namespace Tests.DbTests
     //    [TestMethod]
     //    public void Test1()
     //    {
-            
+
     //    }
     //}
 }

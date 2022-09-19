@@ -7,7 +7,7 @@ using BalansirApp.Core.Products.DataAccess.Interfaces;
 using System;
 using System.Linq;
 
-namespace Tests.DbTests
+namespace Tests.ServicesTests.TestDataSets
 {
     internal static class Data
     {

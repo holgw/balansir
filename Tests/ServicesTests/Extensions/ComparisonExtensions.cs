@@ -1,9 +1,9 @@
 ﻿using BalansirApp.Core.Products;
 using System.Linq;
 
-namespace Tests.DbTests
+namespace Tests.ServicesTests.Extensions
 {
-    public static class Extensions
+    public static class ComparisonExtensions
     {
         public static bool IsEqualRecord(this Product source, Product target)
         {
