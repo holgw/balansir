@@ -25,7 +25,7 @@ namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
             db.Execute(command);
         }
 
-        public static Exception AddTable<TTable>(this SQLiteConnection db)
+        public static SqlCommandResult AddTable<TTable>(this SQLiteConnection db)
         {
             string tableName = typeof(TTable).GetAttributeValue<TableAttribute, string>(a => a.Name);
             string pkColumn = $"(Id " +
@@ -46,7 +46,7 @@ namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
             return db.ExecuteSafe(command);
         }
 
-        public static Exception AddColumn<TTable, TColumn>(
+        public static SqlCommandResult AddColumn<TTable, TColumn>(
             this SQLiteConnection db,
             Expression<Func<TTable, TColumn>> propertyLambda,
             SQLiteColumnType columnType,
@@ -85,7 +85,7 @@ namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
             return db.ExecuteSafe(command);
         }
 
-        public static Exception AddIndex<TTable, TColumn>(
+        public static SqlCommandResult AddIndex<TTable, TColumn>(
             this SQLiteConnection db,
             Expression<Func<TTable, TColumn>> propertyLambda,
             bool isUnique = false)
@@ -114,17 +114,21 @@ namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
             return db.ExecuteSafe(command);
         }
 
-        public static Exception ExecuteSafe(this SQLiteConnection db, string command)
+        public static SqlCommandResult ExecuteSafe(this SQLiteConnection db, string sqlCommand)
         {
+            var result = new SqlCommandResult(sqlCommand);
+
             try
             {
-                db.Execute(command);
-                return null;
+                int affectedRowsCount = db.Execute(sqlCommand);
+                result.AffectedRowsCount = affectedRowsCount;
             }
             catch (Exception ex)
             {
-                return ex;
+                result.Exception = ex;
             }
+
+            return result;
         }
     }
 }

@@ -1,31 +1,28 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Logging;
 using BalansirApp.Core.Migrations.Tools.DDL.Extensions;
 using BalansirApp.Core.Migrations.Tools.Interfaces;
 using System;
-using System.Collections.Generic;
 
 namespace BalansirApp.Core.Migrations.Tools.DDL
 {
     class DataDefinitionBase : IDataDefinitionBase
     {
+        private readonly IMigrationsLogger _logger;
         private readonly SQLiteConnection _db;
 
-        public List<Exception> Exceptions { get; } = new List<Exception>();
-
         // CTOR
-        public DataDefinitionBase(SQLiteConnection db)
+        public DataDefinitionBase(IMigrationsLogger logger, SQLiteConnection db)
         {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
         public IDataDefinitionTable<TTable> AddTable<TTable>()
         {
-            var newException = _db.AddTable<TTable>();
-
-            if (newException != null)
-                Exceptions.Add(newException);
-
-            return new DataDefinitionTable<TTable>(_db);
+            var newResult = _db.AddTable<TTable>();
+            _logger.LogSqlCommandResult(newResult);
+            return new DataDefinitionTable<TTable>(_logger, _db);
         }
     }
 }

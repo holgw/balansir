@@ -1,22 +1,22 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Logging;
 using BalansirApp.Core.Migrations.Tools.DDL.Extensions;
 using BalansirApp.Core.Migrations.Tools.DDL.Utility;
 using BalansirApp.Core.Migrations.Tools.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace BalansirApp.Core.Migrations.Tools.DDL
 {
     class DataDefinitionTable<TTable> : IDataDefinitionTable<TTable>
     {
+        private readonly IMigrationsLogger _logger;
         private readonly SQLiteConnection _db;
 
-        public List<Exception> Exceptions { get; } = new List<Exception>();
-
         // CTOR
-        public DataDefinitionTable(SQLiteConnection db)
+        public DataDefinitionTable(IMigrationsLogger logger, SQLiteConnection db)
         {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
@@ -27,7 +27,7 @@ namespace BalansirApp.Core.Migrations.Tools.DDL
             bool isAutoincrement = false,
             bool isNotNull = false)
         {
-            Func<Exception> func = () => _db.AddColumn(
+            Func<SqlCommandResult> func = () => _db.AddColumn(
                 propertyLambda,
                 columnType,
                 isPrimaryKey,
@@ -44,12 +44,11 @@ namespace BalansirApp.Core.Migrations.Tools.DDL
             return BaseMethod(() => _db.AddIndex(propertyLambda, isUnique));
         }
 
-        DataDefinitionTable<TTable> BaseMethod(Func<Exception> func)
+        DataDefinitionTable<TTable> BaseMethod(Func<SqlCommandResult> func)
         {
-            var newException = func();
+            var newResult = func();
 
-            if (newException != null)
-                Exceptions.Add(newException);
+            _logger.LogSqlCommandResult(newResult);
 
             return this;
         }

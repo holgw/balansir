@@ -14,5 +14,7 @@
         string DbPath { get; }
 
         string ConnectionString { get; }
+
+        string LogsFolder { get; }
     }
 }

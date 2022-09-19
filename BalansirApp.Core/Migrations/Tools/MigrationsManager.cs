@@ -10,34 +10,36 @@ namespace BalansirApp.Core.Migrations.Tools
     class DbMigrationsManager : IDbMigrationsManager
     {
         private readonly SQLiteConnection _db;
+        private readonly IDataDefinitionBase _dataDefinitionBase;
         private readonly IDbBackupManager _dbBackupManager;
         private readonly List<IMigration> _migrations;        
 
-        public const int DbVesrion = 1;
+        public const int DbVersion = 1;
 
         // CTOR
-        public DbMigrationsManager(SQLiteConnection db, IDbBackupManager dbBackupManager)
+        public DbMigrationsManager(SQLiteConnection db, IDataDefinitionBase dataDefinitionBase, IDbBackupManager dbBackupManager)
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
+            _dataDefinitionBase = dataDefinitionBase ?? throw new ArgumentNullException(nameof(dataDefinitionBase));
             _dbBackupManager = dbBackupManager ?? throw new ArgumentNullException(nameof(dbBackupManager));
 
             _migrations = new List<IMigration>()
             {
-                new InitialMigration(db),
+                new InitialMigration(db, _dataDefinitionBase),
             };
         }
 
         public void CheckAndApplyMigrations()
         {
-            if (_db is null)
-                throw new ArgumentNullException(nameof(_db));
-
             int currentDbVersion = _db.GetUserVersion();
-            if (currentDbVersion != DbVesrion)
+            if (currentDbVersion != DbVersion)
             {
                 _dbBackupManager.BackupFile();
                 _migrations.ForEach(x => x.ApplyMigration());
-                _db.SetUserVersion(DbVesrion);
+                
+                
+
+                _db.SetUserVersion(DbVersion);
             }
         }
     }

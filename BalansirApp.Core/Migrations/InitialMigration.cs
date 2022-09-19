@@ -2,20 +2,22 @@
 using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Migrations.Abstractions;
 using BalansirApp.Core.Migrations.Tools.DDL.Utility;
+using BalansirApp.Core.Migrations.Tools.Interfaces;
 using BalansirApp.Core.Products;
 
 namespace BalansirApp.Core.Migrations
 {
     class InitialMigration : AbstractMigration
-    {
+    {       
         // CTOR
-        public InitialMigration(SQLiteConnection db) : base(db)
+        public InitialMigration(SQLiteConnection db, IDataDefinitionBase dataDefinitionBase) 
+            : base(db, dataDefinitionBase)
         {
         }
 
         public override void ApplyMigration()
         {
-            _db.DataDefinitionBase.AddTable<Product>()
+            _dataDefinitionBase.AddTable<Product>()
                 .AddColumn(x => x.Name, SQLiteColumnType.VARCHAR, false, false, true)
                 .AddIndex(x => x.Name, true)
                 .AddColumn(x => x.Code, SQLiteColumnType.VARCHAR, false, false, true)
@@ -24,7 +26,7 @@ namespace BalansirApp.Core.Migrations
                 .AddColumn(x => x.Description, SQLiteColumnType.VARCHAR)
                 .AddColumn(x => x.Balance, SQLiteColumnType.DECIMAL);
 
-            _db.DataDefinitionBase.AddTable<Act>()
+            _dataDefinitionBase.AddTable<Act>()
                 .AddColumn(x => x.TimeStamp, SQLiteColumnType.DATETIME, false, false, true)
                 .AddIndex(x => x.TimeStamp)
                 .AddColumn(x => x.ProductId, SQLiteColumnType.INTEGER, false, false, true)

@@ -29,6 +29,7 @@
   <ItemGroup>
     <PackageReference Include="linq2db.SQLite" Version="4.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="NLog" Version="5.0.4" />
   </ItemGroup>
 
 	<ItemGroup>

@@ -6,7 +6,9 @@ using BalansirApp.Core.Acts.UseCases.GetActsListView;
 using BalansirApp.Core.Acts.UseCases.GetActView;
 using BalansirApp.Core.Acts.UseCases.SaveAct;
 using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Loggers.DI;
 using BalansirApp.Core.Migrations.Tools;
+using BalansirApp.Core.Migrations.Tools.DDL;
 using BalansirApp.Core.Migrations.Tools.Interfaces;
 using BalansirApp.Core.Products;
 using BalansirApp.Core.Products.DataAccess;
@@ -23,9 +25,12 @@ namespace BalansirApp.Core
     {
         public static void SetupCore(this ServiceCollection services)
         {
+            services.AddLoggers();
+
             services.AddScoped<SQLiteConnection>();
             services.AddTransient<IDbBackupManager, DbBackupManager>();
             services.AddTransient<IDbMigrationsManager, DbMigrationsManager>();
+            services.AddTransient<IDataDefinitionBase, DataDefinitionBase>();
 
             // Register Products Service
             services.AddTransient<IProductDAO, ProductDAO>();
