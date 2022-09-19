@@ -32,6 +32,7 @@ namespace Tests.DbTests
         {                        
             // ARRANGE
             var productView = new ProductView() { Name = "N1", Code = "C1", Units = "U1", Description = "D1" };
+            _productsService.SaveEntity(productView);
 
             // ACT
             var actView = new ActView() { TimeStamp = DateTime.Now, ProductId = productView.Id, Delta = +15 };

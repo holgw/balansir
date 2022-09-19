@@ -17,14 +17,6 @@ namespace Tests.DbTests
         [TestInitialize]
         public virtual void Startup()
         {
-            if (ServiceProvider != null)
-            {
-                ServiceProvider = null;
-                GC.Collect();
-            }
-
-            Thread.Sleep(10000);
-
             var services = new ServiceCollection();
             services.AddSingleton<IAppFilesLocator, AppFilesLocator_Test>(); 
             services.SetupCore();
@@ -32,8 +24,11 @@ namespace Tests.DbTests
 
             File.Delete(ServiceProvider.GetService<IAppFilesLocator>().DbPath);
 
-            var migrationsManager = ServiceProvider.GetService<IDbMigrationsManager>();
-            migrationsManager.CheckAndApplyMigrations();
+            using (var scope = ServiceProvider.CreateScope())
+            {
+                var migrationsManager = scope.ServiceProvider.GetService<IDbMigrationsManager>();
+                migrationsManager.CheckAndApplyMigrations();
+            }
         }
     }
 

@@ -19,14 +19,28 @@ namespace BalansirApp.Core.Migrations.Tools
             string originFilePath = _appFilesLocator.DbPath;
             string backupFilePath = this.GetBackupFilePath();
 
-            File.Copy(originFilePath, backupFilePath);
+            if (File.Exists(originFilePath))
+            {
+                int c = 0;
+                do
+                {
+                    c++;
+                } while (File.Exists(this.GetBackupFilePath(c)));
+
+                File.Copy(originFilePath, this.GetBackupFilePath(c));
+            }
         }
 
-        string GetBackupFilePath()
+        string GetBackupFilePath(int? c = null)
         {
             string originPath = _appFilesLocator.DbPath;
             string timeStamp = DateTime.Now.ToString("dd_MM_yyyy_HH-mm-ss");
-            return $"{originPath}_{timeStamp}";
+            string filePath = $"{originPath}_{timeStamp}";
+
+            if (c != null)
+                filePath += $"_{c}";
+
+            return filePath;
         }
     }
 }

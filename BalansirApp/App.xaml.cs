@@ -21,8 +21,11 @@ namespace BalansirApp
             InitializeComponent();
             this.SetupServices(services);
 
-            var migrationsManager = ServiceProvider.GetService<IDbMigrationsManager>();
-            migrationsManager.CheckAndApplyMigrations();
+            using (var scope = ServiceProvider.CreateScope())
+            {
+                var migrationsManager = scope.ServiceProvider.GetService<IDbMigrationsManager>();
+                migrationsManager.CheckAndApplyMigrations();
+            }
 
             this.MainPage = new AppShell();
         }
