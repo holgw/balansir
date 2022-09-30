@@ -6,6 +6,8 @@ using Android.Runtime;
 using BalansirApp.Core.Common.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
+using Xamarin.Forms;
 
 namespace BalansirApp.Droid
 {
@@ -20,11 +22,13 @@ namespace BalansirApp.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            DependencyService.RegisterSingleton<IAppFilesLocator>(new AppFilesLocator_Android());
 
-            var services = new ServiceCollection();
-            services.AddSingleton<IAppFilesLocator, AppFilesLocator_Android>();            
+            string fileName = "contacts.db.db3";
+            string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            string completePath = Path.Combine(folderPath, fileName);
 
-            LoadApplication(new App(services));
+            LoadApplication(new App());
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

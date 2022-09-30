@@ -16,13 +16,21 @@ namespace BalansirApp
         protected static IServiceProvider ServiceProvider { get; set; }
 
         // CTOR
-        public App(ServiceCollection services)
+        public App()
         {
             InitializeComponent();
-            this.SetupServices(services);
+            var services = new ServiceCollection();
+            services.SetupCore();
+            services.SetupServices();
+            ServiceProvider = services.BuildServiceProvider();
+
+            var appFilesLoc = ServiceProvider.GetService<IAppFilesLocator>();
+            LinqToDB.DataProvider.SQLite.SQLiteTools.CreateDatabase(appFilesLoc.DbPath);
 
             using (var scope = ServiceProvider.CreateScope())
-            {
+            {               
+                var db = new MySQLiteConnection(appFilesLoc);
+
                 var migrationsManager = scope.ServiceProvider.GetService<IDbMigrationsManager>();
                 migrationsManager.CheckAndApplyMigrations();
             }
@@ -40,11 +48,12 @@ namespace BalansirApp
         {
             return ServiceProvider.GetService<TViewModel>();
         }
+    }
 
-        public void SetupServices(ServiceCollection services)
+    internal static class DiExtensions
+    {
+        public static void SetupServices(this ServiceCollection services)
         {
-            services.SetupCore();
-
             services.AddSingleton<ISettingsProvider, Settings>();
             services.AddSingleton(x => DependencyService.Resolve<IAppFilesLocator>());
             services.AddSingleton(x => DependencyService.Resolve<IAppVersionProvider>());
@@ -55,9 +64,6 @@ namespace BalansirApp
             services.AddTransient<ProductEdit_ViewModel>();
             services.AddTransient<ProductsList_ViewModel>();
             services.AddTransient<SettingsEdit_ViewModel>();
-
-            //services.AddSingleton<IServiceProvider>(x => App.ServiceProvider);
-            ServiceProvider = services.BuildServiceProvider();
         }
     }
 }

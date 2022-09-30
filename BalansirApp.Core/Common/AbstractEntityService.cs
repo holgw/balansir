@@ -47,7 +47,7 @@ namespace BalansirApp.Core.Common
         {
             using (var scope = _serviceProvider.CreateScope())
             {
-                using (var db = scope.ServiceProvider.GetService<SQLiteConnection>())
+                using (var db = scope.ServiceProvider.GetService<MySQLiteConnection>())
                 {
                     db.BeginTransaction();
                     try

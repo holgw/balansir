@@ -13,19 +13,19 @@ namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
     /// </summary>
     static class SqlDataDefinitionExtensions
     {
-        public static int GetUserVersion(this SQLiteConnection db)
+        public static int GetUserVersion(this MySQLiteConnection db)
         {
             string command = $"{SQLiteKeywords.Pragma} {SQLiteKeywords.UserVersion}";
             return db.Execute<int>(command);
         }
 
-        public static void SetUserVersion(this SQLiteConnection db, int version)
+        public static void SetUserVersion(this MySQLiteConnection db, int version)
         {
             string command = $"{SQLiteKeywords.Pragma} {SQLiteKeywords.UserVersion} = {version}";
             db.Execute(command);
         }
 
-        public static SqlCommandResult AddTable<TTable>(this SQLiteConnection db)
+        public static SqlCommandResult AddTable<TTable>(this MySQLiteConnection db)
         {
             string tableName = typeof(TTable).GetAttributeValue<TableAttribute, string>(a => a.Name);
             string pkColumn = $"(Id " +
@@ -47,7 +47,7 @@ namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
         }
 
         public static SqlCommandResult AddColumn<TTable, TColumn>(
-            this SQLiteConnection db,
+            this MySQLiteConnection db,
             Expression<Func<TTable, TColumn>> propertyLambda,
             SQLiteColumnType columnType,
             bool isPrimaryKey = false,
@@ -86,7 +86,7 @@ namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
         }
 
         public static SqlCommandResult AddIndex<TTable, TColumn>(
-            this SQLiteConnection db,
+            this MySQLiteConnection db,
             Expression<Func<TTable, TColumn>> propertyLambda,
             bool isUnique = false)
         {
@@ -114,7 +114,7 @@ namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
             return db.ExecuteSafe(command);
         }
 
-        public static SqlCommandResult ExecuteSafe(this SQLiteConnection db, string sqlCommand)
+        public static SqlCommandResult ExecuteSafe(this MySQLiteConnection db, string sqlCommand)
         {
             var result = new SqlCommandResult(sqlCommand);
 

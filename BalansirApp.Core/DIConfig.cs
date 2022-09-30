@@ -27,7 +27,7 @@ namespace BalansirApp.Core
         {
             services.AddLoggers();
 
-            services.AddScoped<SQLiteConnection>();
+            services.AddScoped<MySQLiteConnection>();
             services.AddTransient<IDbBackupManager, DbBackupManager>();
             services.AddTransient<IDbMigrationsManager, DbMigrationsManager>();
             services.AddTransient<IDataDefinitionBase, DataDefinitionBase>();

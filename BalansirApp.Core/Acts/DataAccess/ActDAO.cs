@@ -10,7 +10,7 @@ namespace BalansirApp.Core.Acts.DataAccess
         protected override ITable<Act> Table => _db.Acts;
 
         // CTOR
-        public ActDAO(SQLiteConnection db) : base(db)
+        public ActDAO(MySQLiteConnection db) : base(db)
         {
         }
 

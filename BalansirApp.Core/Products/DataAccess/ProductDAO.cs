@@ -10,7 +10,7 @@ namespace BalansirApp.Core.Products.DataAccess
         protected override ITable<Product> Table => _db.Products;
 
         // CTOR
-        public ProductDAO(SQLiteConnection db) : base(db)
+        public ProductDAO(MySQLiteConnection db) : base(db)
         {
         }
 
