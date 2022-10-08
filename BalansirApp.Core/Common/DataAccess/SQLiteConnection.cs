@@ -2,6 +2,7 @@
 using BalansirApp.Core.Products;
 using LinqToDB;
 using LinqToDB.Data;
+using LinqToDB.DataProvider.SQLite;
 
 namespace BalansirApp.Core.Common.DataAccess
 {
@@ -12,7 +13,7 @@ namespace BalansirApp.Core.Common.DataAccess
 
         // CTOR
         public MySQLiteConnection(IAppFilesLocator appFilesLocator) 
-            : base(ProviderName.SQLite, appFilesLocator.ConnectionString) 
+            : base(ProviderName.SQLiteMS, appFilesLocator.ConnectionString) 
         {
         }
     }

@@ -1,7 +1,7 @@
 ﻿using BalansirApp.Core.Loggers.Interfaces;
 using NLog;
 
-namespace BalansirApp.Core.Logging
+namespace BalansirApp.Core.Loggers
 {
     class MainLogger : BaseLogger, IMainLogger
     {

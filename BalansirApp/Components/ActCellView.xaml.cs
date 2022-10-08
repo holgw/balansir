@@ -1,4 +1,4 @@
-﻿using BalansirApp.Core.Domains.Acts;
+﻿using BalansirApp.Core.Acts;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

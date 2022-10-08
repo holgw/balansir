@@ -1,5 +1,5 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
-using BalansirApp.Core.Logging;
+using BalansirApp.Core.Loggers.Interfaces;
 using BalansirApp.Core.Migrations.Tools.DDL.Extensions;
 using BalansirApp.Core.Migrations.Tools.DDL.Utility;
 using BalansirApp.Core.Migrations.Tools.Interfaces;

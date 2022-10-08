@@ -5,7 +5,6 @@ using BalansirApp.Core.Acts.UseCases.GetActView;
 using BalansirApp.Core.Acts.UseCases.SaveAct;
 using BalansirApp.Core.Common;
 using BalansirApp.Core.Common.DataAccess;
-using BalansirApp.Core.Domains.Acts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 

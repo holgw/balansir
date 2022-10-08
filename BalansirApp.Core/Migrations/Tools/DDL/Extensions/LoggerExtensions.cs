@@ -1,4 +1,4 @@
-﻿using BalansirApp.Core.Logging;
+﻿using BalansirApp.Core.Loggers.Interfaces;
 using BalansirApp.Core.Migrations.Tools.DDL.Utility;
 
 namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions

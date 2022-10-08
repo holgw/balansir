@@ -1,4 +1,5 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
+using BalansirApp.Core.Migrations.Tools.Interfaces;
 using System;
 using System.IO;
 

@@ -1,9 +1,9 @@
 ﻿using BalansirApp.Core.Common;
 using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Products.DataAccess;
-using BalansirApp.Core.Products.UseCases;
 using BalansirApp.Core.Products.UseCases.DeleteProduct;
 using BalansirApp.Core.Products.UseCases.GetProductsListView;
+using BalansirApp.Core.Products.UseCases.GetProductView;
 using BalansirApp.Core.Products.UseCases.SaveProduct;
 using Microsoft.Extensions.DependencyInjection;
 using System;

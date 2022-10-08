@@ -5,6 +5,7 @@
              Title="{Binding Title}"             
              BackgroundColor="{StaticResource PageBackgroundColor}"
              xmlns:controls="clr-namespace:BalansirApp.Controls;assembly=BalansirApp"
+             xmlns:behaviors="clr-namespace:BalansirApp.Controls.Behaviors;assembly=BalansirApp"
              xmlns:converters="clr-namespace:BalansirApp.Controls.Converters;assembly=BalansirApp"
              xmlns:effects="clr-namespace:BalansirApp.Controls.Effects;assembly=BalansirApp">
 
@@ -84,7 +85,7 @@
                             BorderThickness="0"
                             CornerRadius="5">
                             <Entry.Behaviors>
-                                <controls:MinMaxValidatorBehavior 
+                                <behaviors:MinMaxValidatorBehavior 
                                 MinValue="0"
                                 MaxValue="23"/>
                             </Entry.Behaviors>
@@ -131,7 +132,7 @@
                             BorderThickness="0"
                             CornerRadius="5">
                             <Entry.Behaviors>
-                                <controls:MinMaxValidatorBehavior 
+                                <behaviors:MinMaxValidatorBehavior 
                                 MinValue="0"
                                 MaxValue="59"/>
                             </Entry.Behaviors>

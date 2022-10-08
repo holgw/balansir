@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BalansirApp.Core.Migrations.Tools
+namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
 {
     static class AttributeExtensions
     {

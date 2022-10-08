@@ -4,7 +4,7 @@ using BalansirApp.Core.Migrations.Tools.Interfaces;
 using BalansirApp.Utility;
 using BalansirApp.ViewModels.Acts;
 using BalansirApp.ViewModels.Common;
-using BalansirApp.ViewModels.ItemReferences;
+using BalansirApp.ViewModels.Products;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xamarin.Forms;

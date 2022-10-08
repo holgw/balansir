@@ -1,7 +1,6 @@
 ﻿using BalansirApp.Core.Acts;
 using BalansirApp.Core.Acts.DataAccess;
 using BalansirApp.Core.Common;
-using BalansirApp.Core.Domains.Acts;
 using BalansirApp.ViewModels.Common;
 using BalansirApp.ViewModels.Common.Utility;
 using System;

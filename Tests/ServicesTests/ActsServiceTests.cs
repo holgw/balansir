@@ -1,7 +1,6 @@
 ﻿using BalansirApp.Core.Acts;
 using BalansirApp.Core.Acts.DataAccess;
 using BalansirApp.Core.Common;
-using BalansirApp.Core.Domains.Acts;
 using BalansirApp.Core.Products;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

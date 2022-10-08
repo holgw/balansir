@@ -2,7 +2,7 @@
 using NLog;
 using System;
 
-namespace BalansirApp.Core.Logging
+namespace BalansirApp.Core.Loggers
 {
     class BaseLogger : IBaseLogger
     {
@@ -16,31 +16,31 @@ namespace BalansirApp.Core.Logging
 
         public void LogInfo(string title, string message = null)
         {
-            this.Log(LogLevel.Info, title, message);
+            Log(LogLevel.Info, title, message);
         }
 
         public void LogDebug(string title, string message)
         {
-            this.Log(LogLevel.Debug, title, message);
+            Log(LogLevel.Debug, title, message);
         }
 
         public void LogError(string title, string message = null, Exception ex = null)
         {
             if (message == null)
-                message = String.Empty;
+                message = string.Empty;
 
             if (ex != null)
                 message += $"[Exception: {ex}]";
 
-            this.Log(LogLevel.Info, title, message);
+            Log(LogLevel.Info, title, message);
         }
 
         void Log(LogLevel logLevel, string title, string message)
         {
-            if (!String.IsNullOrEmpty(title))
+            if (!string.IsNullOrEmpty(title))
                 title += ": ";
 
-            if (!String.IsNullOrEmpty(message))
+            if (!string.IsNullOrEmpty(message))
                 title += message;
 
             _logger.Log(logLevel, title);

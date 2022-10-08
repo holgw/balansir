@@ -1,6 +1,7 @@
-﻿using NLog;
+﻿using BalansirApp.Core.Loggers.Interfaces;
+using NLog;
 
-namespace BalansirApp.Core.Logging
+namespace BalansirApp.Core.Loggers
 {
     class MigrationsLogger : BaseLogger, IMigrationsLogger
     {

@@ -13,9 +13,9 @@ using BalansirApp.Core.Migrations.Tools.Interfaces;
 using BalansirApp.Core.Products;
 using BalansirApp.Core.Products.DataAccess;
 using BalansirApp.Core.Products.DataAccess.Interfaces;
-using BalansirApp.Core.Products.UseCases;
 using BalansirApp.Core.Products.UseCases.DeleteProduct;
 using BalansirApp.Core.Products.UseCases.GetProductsListView;
+using BalansirApp.Core.Products.UseCases.GetProductView;
 using BalansirApp.Core.Products.UseCases.SaveProduct;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,8 +1,6 @@
-﻿using BalansirApp.Core.Loggers.Interfaces;
-
-namespace BalansirApp.Core.Logging
+﻿namespace BalansirApp.Core.Loggers.Interfaces
 {
     interface IMigrationsLogger : IBaseLogger
-    {         
+    {
     }
 }

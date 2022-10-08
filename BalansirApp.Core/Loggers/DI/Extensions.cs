@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using BalansirApp.Core.Common.DataAccess;
 using System.IO;
 using BalansirApp.Core.Loggers.Interfaces;
-using BalansirApp.Core.Logging;
 
 namespace BalansirApp.Core.Loggers.DI
 {
