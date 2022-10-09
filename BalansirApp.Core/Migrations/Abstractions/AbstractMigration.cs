@@ -6,11 +6,11 @@ namespace BalansirApp.Core.Migrations.Abstractions
 {
     abstract class AbstractMigration : IMigration
     {
-        protected readonly MySQLiteConnection _db;
+        protected readonly SQLiteConnection _db;
         protected readonly IDataDefinitionBase _dataDefinitionBase;
 
         // CTOR
-        public AbstractMigration(MySQLiteConnection db, IDataDefinitionBase dataDefinitionBase)
+        public AbstractMigration(SQLiteConnection db, IDataDefinitionBase dataDefinitionBase)
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
             _dataDefinitionBase = dataDefinitionBase ?? throw new ArgumentNullException(nameof(dataDefinitionBase));

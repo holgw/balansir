@@ -10,7 +10,7 @@ namespace BalansirApp.Core.Migrations
     class InitialMigration : AbstractMigration
     {       
         // CTOR
-        public InitialMigration(MySQLiteConnection db, IDataDefinitionBase dataDefinitionBase) 
+        public InitialMigration(SQLiteConnection db, IDataDefinitionBase dataDefinitionBase) 
             : base(db, dataDefinitionBase)
         {
         }

@@ -29,7 +29,7 @@ namespace BalansirApp
 
             using (var scope = ServiceProvider.CreateScope())
             {               
-                var db = new MySQLiteConnection(appFilesLoc);
+                var db = new SQLiteConnection(appFilesLoc);
 
                 var migrationsManager = scope.ServiceProvider.GetService<IDbMigrationsManager>();
                 migrationsManager.CheckAndApplyMigrations();

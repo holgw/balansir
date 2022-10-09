@@ -11,10 +11,10 @@ namespace BalansirApp.Core.Migrations.Tools.DDL
     class DataDefinitionTable<TTable> : IDataDefinitionTable<TTable>
     {
         private readonly IMigrationsLogger _logger;
-        private readonly MySQLiteConnection _db;
+        private readonly SQLiteConnection _db;
 
         // CTOR
-        public DataDefinitionTable(IMigrationsLogger logger, MySQLiteConnection db)
+        public DataDefinitionTable(IMigrationsLogger logger, SQLiteConnection db)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _db = db ?? throw new ArgumentNullException(nameof(db));

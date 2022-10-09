@@ -9,7 +9,7 @@ namespace BalansirApp.Core.Migrations.Tools
 {
     class DbMigrationsManager : IDbMigrationsManager
     {
-        private readonly MySQLiteConnection _db;
+        private readonly SQLiteConnection _db;
         private readonly IDataDefinitionBase _dataDefinitionBase;
         private readonly IDbBackupManager _dbBackupManager;
         private readonly List<IMigration> _migrations;        
@@ -17,7 +17,7 @@ namespace BalansirApp.Core.Migrations.Tools
         public const int DbVersion = 1;
 
         // CTOR
-        public DbMigrationsManager(MySQLiteConnection db, IDataDefinitionBase dataDefinitionBase, IDbBackupManager dbBackupManager)
+        public DbMigrationsManager(SQLiteConnection db, IDataDefinitionBase dataDefinitionBase, IDbBackupManager dbBackupManager)
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
             _dataDefinitionBase = dataDefinitionBase ?? throw new ArgumentNullException(nameof(dataDefinitionBase));

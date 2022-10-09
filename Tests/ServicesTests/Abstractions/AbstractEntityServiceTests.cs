@@ -20,6 +20,9 @@ namespace Tests.ServicesTests.Abstractions
         [TestInitialize]
         public virtual void Startup()
         {
+            ServiceProvider = null;
+            GC.Collect();
+            
             var services = new ServiceCollection();
             services.AddSingleton<IAppFilesLocator, AppFilesLocator_Test>();
             services.SetupCore();

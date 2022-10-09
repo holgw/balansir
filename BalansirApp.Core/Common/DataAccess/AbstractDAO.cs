@@ -13,12 +13,12 @@ namespace BalansirApp.Core.Common.DataAccess
         where T : DbRecord, new()
         where P : BaseQueryParam
     {
-        protected readonly MySQLiteConnection _db;
+        protected readonly SQLiteConnection _db;
 
         protected abstract ITable<T> Table { get; }
 
         // CTOR
-        public AbstractDAO(MySQLiteConnection db)
+        public AbstractDAO(SQLiteConnection db)
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
