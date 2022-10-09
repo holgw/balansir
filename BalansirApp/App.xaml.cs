@@ -6,6 +6,7 @@ using BalansirApp.ViewModels.Acts;
 using BalansirApp.ViewModels.Common;
 using BalansirApp.ViewModels.Products;
 using Microsoft.Extensions.DependencyInjection;
+using SQLite;
 using System;
 using Xamarin.Forms;
 
@@ -25,11 +26,10 @@ namespace BalansirApp
             ServiceProvider = services.BuildServiceProvider();
 
             var appFilesLoc = ServiceProvider.GetService<IAppFilesLocator>();
-            LinqToDB.DataProvider.SQLite.SQLiteTools.CreateDatabase(appFilesLoc.DbPath);
 
             using (var scope = ServiceProvider.CreateScope())
             {               
-                var db = new SQLiteConnection(appFilesLoc);
+                var db = new SQLiteConnection(appFilesLoc.DbPath);
 
                 var migrationsManager = scope.ServiceProvider.GetService<IDbMigrationsManager>();
                 migrationsManager.CheckAndApplyMigrations();

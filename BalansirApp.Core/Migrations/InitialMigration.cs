@@ -1,9 +1,9 @@
 ﻿using BalansirApp.Core.Acts;
-using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Migrations.Abstractions;
 using BalansirApp.Core.Migrations.Tools.DDL.Utility;
 using BalansirApp.Core.Migrations.Tools.Interfaces;
 using BalansirApp.Core.Products;
+using SQLite;
 
 namespace BalansirApp.Core.Migrations
 {

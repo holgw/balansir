@@ -1,5 +1,5 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
-using LinqToDB.Mapping;
+using SQLite;
 
 namespace BalansirApp.Core.Products
 {
@@ -9,26 +9,26 @@ namespace BalansirApp.Core.Products
         /// <summary>
         /// Наименование продукта
         /// </summary>
-        [Column] public string Name { get; set; }
+        [Unique] public string Name { get; set; }
 
         /// <summary>
         /// Код продукта
         /// </summary>
-        [Column] public string Code { get; set; }
+        [Unique] public string Code { get; set; }
 
         /// <summary>
         /// Единицы учета продукта (штуки, литры, погонные метры)
         /// </summary>
-        [Column] public string Units { get; set; }
+        public string Units { get; set; }
 
         /// <summary>
         /// Описание продукта
         /// </summary>
-        [Column] public string Description { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Текущий баланс (остаток) на складе
         /// </summary>
-        [Column] public decimal Balance { get; set; }
+        public decimal Balance { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BalansirApp.Core.Common.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
+using SQLite;
 using System;
 
 namespace BalansirApp.Core.Common
@@ -53,11 +54,11 @@ namespace BalansirApp.Core.Common
                     try
                     {
                         action(scope);
-                        db.CommitTransaction();
+                        db.Commit();
                     }
                     catch
                     {
-                        db.RollbackTransaction();
+                        db.Rollback();
                         throw;
                     }
                 }                

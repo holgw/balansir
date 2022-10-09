@@ -18,6 +18,7 @@ using BalansirApp.Core.Products.UseCases.GetProductsListView;
 using BalansirApp.Core.Products.UseCases.GetProductView;
 using BalansirApp.Core.Products.UseCases.SaveProduct;
 using Microsoft.Extensions.DependencyInjection;
+using SQLite;
 
 namespace BalansirApp.Core
 {
@@ -27,7 +28,7 @@ namespace BalansirApp.Core
         {
             services.AddLoggers();
 
-            services.AddScoped<SQLiteConnection>();
+            services.AddScoped(x => new SQLiteConnection(x.GetRequiredService<IAppFilesLocator>().DbPath));
             services.AddTransient<IDbBackupManager, DbBackupManager>();
             services.AddTransient<IDbMigrationsManager, DbMigrationsManager>();
             services.AddTransient<IDataDefinitionBase, DataDefinitionBase>();

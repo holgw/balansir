@@ -1,5 +1,5 @@
 ﻿using BalansirApp.Core.Common.DataAccess.Interfaces;
-using LinqToDB;
+using SQLite;
 using System;
 using System.Linq;
 
@@ -15,7 +15,7 @@ namespace BalansirApp.Core.Common.DataAccess
     {
         protected readonly SQLiteConnection _db;
 
-        protected abstract ITable<T> Table { get; }
+        protected abstract TableQuery<T> Table { get; }
 
         // CTOR
         public AbstractDAO(SQLiteConnection db)
@@ -62,13 +62,13 @@ namespace BalansirApp.Core.Common.DataAccess
             }
             else
             {
-                item.Id = _db.InsertWithInt32Identity(item);
+                item.Id = _db.Insert(item);
                 return item.Id;
             }
         }
 
         // METHODS: Protected
-        protected virtual IQueryable<T> Query(P queryParam)
+        protected virtual TableQuery<T> Query(P queryParam)
         {
             return this.Table;
         }

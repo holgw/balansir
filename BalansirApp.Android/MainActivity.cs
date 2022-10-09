@@ -4,9 +4,6 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using BalansirApp.Core.Common.DataAccess;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
 using Xamarin.Forms;
 
 namespace BalansirApp.Droid
@@ -23,10 +20,6 @@ namespace BalansirApp.Droid
 
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
             DependencyService.RegisterSingleton<IAppFilesLocator>(new AppFilesLocator_Android());
-
-            string fileName = "contacts.db.db3";
-            string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            string completePath = Path.Combine(folderPath, fileName);
 
             LoadApplication(new App());
         }

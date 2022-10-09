@@ -1,7 +1,7 @@
-﻿using BalansirApp.Core.Common.DataAccess;
-using BalansirApp.Core.Loggers.Interfaces;
+﻿using BalansirApp.Core.Loggers.Interfaces;
 using BalansirApp.Core.Migrations.Tools.DDL.Extensions;
 using BalansirApp.Core.Migrations.Tools.Interfaces;
+using SQLite;
 using System;
 
 namespace BalansirApp.Core.Migrations.Tools.DDL

@@ -1,13 +1,13 @@
 ﻿using BalansirApp.Core.Acts.DataAccess.Interfaces;
 using BalansirApp.Core.Common.DataAccess;
-using LinqToDB;
+using SQLite;
 using System.Linq;
 
 namespace BalansirApp.Core.Acts.DataAccess
 {
     public class ActDAO : AbstractDAO<Act, ActsQueryParam>, IActDAO
     {
-        protected override ITable<Act> Table => _db.Acts;
+        protected override TableQuery<Act> Table => _db.Table<Act>();
 
         // CTOR
         public ActDAO(SQLiteConnection db) : base(db)
@@ -15,7 +15,7 @@ namespace BalansirApp.Core.Acts.DataAccess
         }
 
         // METHODS: Protected
-        protected override IQueryable<Act> Query(ActsQueryParam queryParam)
+        protected override TableQuery<Act> Query(ActsQueryParam queryParam)
         {
             var q = base.Query(queryParam);
 

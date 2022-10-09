@@ -2,6 +2,7 @@
 using BalansirApp.Core.Migrations.Abstractions;
 using BalansirApp.Core.Migrations.Tools.DDL.Extensions;
 using BalansirApp.Core.Migrations.Tools.Interfaces;
+using SQLite;
 using System;
 using System.Collections.Generic;
 

@@ -1,7 +1,5 @@
-﻿using BalansirApp.Core.Common.DataAccess;
-using BalansirApp.Core.Migrations.Tools.DDL.Utility;
-using LinqToDB.Data;
-using LinqToDB.Mapping;
+﻿using BalansirApp.Core.Migrations.Tools.DDL.Utility;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -16,7 +14,7 @@ namespace BalansirApp.Core.Migrations.Tools.DDL.Extensions
         public static int GetUserVersion(this SQLiteConnection db)
         {
             string command = $"{SQLiteKeywords.Pragma} {SQLiteKeywords.UserVersion}";
-            return db.Execute<int>(command);
+            return db.ExecuteScalar<int>(command);
         }
 
         public static void SetUserVersion(this SQLiteConnection db, int version)
