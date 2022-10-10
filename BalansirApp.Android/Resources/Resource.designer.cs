@@ -18880,7 +18880,7 @@ namespace BalansirApp.Droid
 			public const int icon_round = 2131492865;
 			
 			// aapt resource value: 0x7F0C0002
-			public const int launcher_foreground = 2131492866;
+			public const int launcher = 2131492866;
 			
 			static Mipmap()
 			{
