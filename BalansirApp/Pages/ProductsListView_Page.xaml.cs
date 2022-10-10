@@ -1,5 +1,5 @@
 ﻿using BalansirApp.Core.Products;
-using BalansirApp.ViewModels.ItemReferences;
+using BalansirApp.ViewModels.Products;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

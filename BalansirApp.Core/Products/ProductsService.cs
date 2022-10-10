@@ -1,64 +1,43 @@
-﻿using BalansirApp.Core.Acts.DataAccess;
-using BalansirApp.Core.Common;
+﻿using BalansirApp.Core.Common;
 using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Products.DataAccess;
-using BalansirApp.Core.Products.UseCases;
+using BalansirApp.Core.Products.UseCases.DeleteProduct;
+using BalansirApp.Core.Products.UseCases.GetProductsListView;
+using BalansirApp.Core.Products.UseCases.GetProductView;
+using BalansirApp.Core.Products.UseCases.SaveProduct;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace BalansirApp.Core.Products
 {
     class ProductsService : AbstractEntityService<ProductView, ProductsQueryParam>, IProductsService
     {
         // CTOR
-        public ProductsService(IAppFilesLocator appFilesLocator) :
-            base(appFilesLocator)
+        public ProductsService(IServiceProvider serviceProvider) : 
+            base(serviceProvider)
         {
         }
 
         // METHODS: Public
-        public override ItemsPageQueryResult<ProductView, ProductsQueryParam> GetEntityListView(ProductsQueryParam queryParam)
+        protected override ItemsPageQueryResult<ProductView, ProductsQueryParam> GetEntityListViewAction(IServiceScope serviceScope, ProductsQueryParam queryParam)
         {
-            ItemsPageQueryResult<ProductView, ProductsQueryParam> result = null;
-
-            _appFilesLocator.ExecuteDbConnection(db =>
-            {
-                var productDAO = new ProductDAO(db);
-                var useCase = new GetProductsListView_UseCase(productDAO);
-                result = useCase.Execute(queryParam);
-            });
-
-            return result;
+            var useCase = serviceScope.ServiceProvider.GetService<IGetProductsListView_UseCase>();
+            return useCase.Execute(queryParam);
         }
-        public override ProductView GetEntityView(int id)
+        protected override ProductView GetEntityViewAction(IServiceScope serviceScope, int id)
         {
-            ProductView productView = null;
-
-            _appFilesLocator.ExecuteDbConnection(db =>
-            {
-                var productDAO = new ProductDAO(db);
-                var useCase = new GetProductView_UseCase(productDAO);
-                productView = useCase.Execute(id);
-            });
-
-            return productView;
+            var useCase = serviceScope.ServiceProvider.GetService<IGetProductView_UseCase>();
+            return useCase.Execute(id);
         }
-        public override void SaveEntity(ProductView productView)
+        protected override void SaveEntityAction(IServiceScope serviceScope, ProductView productView)
         {
-            _appFilesLocator.ExecuteDbConnection(db =>
-            {
-                var productDAO = new ProductDAO(db);
-                var useCase = new SaveProduct_UseCase(productDAO);
-                useCase.Execute(productView);
-            });
+            var useCase = serviceScope.ServiceProvider.GetService<ISaveProduct_UseCase>();
+            useCase.Execute(productView);
         }
-        public override void DeleteEntity(ProductView entity)
+        protected override void DeleteEntityAction(IServiceScope serviceScope, ProductView entity)
         {
-            _appFilesLocator.ExecuteDbConnection(db =>
-            {
-                var productDAO = new ProductDAO(db);
-                var actDAO = new ActDAO(db);
-                var useCase = new DeleteProduct_UseCase(productDAO, actDAO);
-                useCase.Execute(entity);
-            });
+            var useCase = serviceScope.ServiceProvider.GetService<IDeleteProduct_UseCase>();
+            useCase.Execute(entity);
         }
     }
 }

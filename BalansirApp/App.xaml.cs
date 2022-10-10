@@ -1,11 +1,12 @@
 ﻿using BalansirApp.Core;
 using BalansirApp.Core.Common.DataAccess;
-using BalansirApp.Core.Common.DataAccess.Interfaces;
+using BalansirApp.Core.Migrations.Tools.Interfaces;
 using BalansirApp.Utility;
 using BalansirApp.ViewModels.Acts;
 using BalansirApp.ViewModels.Common;
-using BalansirApp.ViewModels.ItemReferences;
+using BalansirApp.ViewModels.Products;
 using Microsoft.Extensions.DependencyInjection;
+using SQLite;
 using System;
 using Xamarin.Forms;
 
@@ -19,10 +20,20 @@ namespace BalansirApp
         public App()
         {
             InitializeComponent();
-            this.SetupServices();
+            var services = new ServiceCollection();
+            services.SetupCore();
+            services.SetupServices();
+            ServiceProvider = services.BuildServiceProvider();
 
-            var dbMaintainService = ServiceProvider.GetService<IDbMaintainService>();
-            dbMaintainService.InitializeDatabase();
+            var appFilesLoc = ServiceProvider.GetService<IAppFilesLocator>();
+
+            using (var scope = ServiceProvider.CreateScope())
+            {               
+                var db = new SQLiteConnection(appFilesLoc.DbPath);
+
+                var migrationsManager = scope.ServiceProvider.GetService<IDbMigrationsManager>();
+                migrationsManager.CheckAndApplyMigrations();
+            }
 
             this.MainPage = new AppShell();
         }
@@ -37,13 +48,12 @@ namespace BalansirApp
         {
             return ServiceProvider.GetService<TViewModel>();
         }
+    }
 
-        void SetupServices()
+    internal static class DiExtensions
+    {
+        public static void SetupServices(this ServiceCollection services)
         {
-            var services = new ServiceCollection();
-
-            services.SetupCore();
-
             services.AddSingleton<ISettingsProvider, Settings>();
             services.AddSingleton(x => DependencyService.Resolve<IAppFilesLocator>());
             services.AddSingleton(x => DependencyService.Resolve<IAppVersionProvider>());
@@ -54,8 +64,6 @@ namespace BalansirApp
             services.AddTransient<ProductEdit_ViewModel>();
             services.AddTransient<ProductsList_ViewModel>();
             services.AddTransient<SettingsEdit_ViewModel>();
-
-            ServiceProvider = services.BuildServiceProvider();
         }
     }
 }

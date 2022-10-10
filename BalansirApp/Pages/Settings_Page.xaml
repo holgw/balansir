@@ -5,6 +5,7 @@
              Title="{Binding Title}"             
              BackgroundColor="{StaticResource PageBackgroundColor}"
              xmlns:controls="clr-namespace:BalansirApp.Controls;assembly=BalansirApp"
+             xmlns:behaviors="clr-namespace:BalansirApp.Controls.Behaviors;assembly=BalansirApp"
              xmlns:converters="clr-namespace:BalansirApp.Controls.Converters;assembly=BalansirApp">
 
     <ContentPage.Resources>
@@ -39,7 +40,7 @@
                     Keyboard="Numeric" 
                     Style="{StaticResource StandardInput}">
                     <Entry.Behaviors>
-                        <controls:MinMaxValidatorBehavior 
+                        <behaviors:MinMaxValidatorBehavior 
                         MinValue="1" 
                         MaxValue="99999"/>
                     </Entry.Behaviors>
@@ -56,7 +57,7 @@
                     Keyboard="Numeric" 
                     Style="{StaticResource StandardInput}">
                     <Entry.Behaviors>
-                        <controls:MinMaxValidatorBehavior 
+                        <behaviors:MinMaxValidatorBehavior 
                         MinValue="1" 
                         MaxValue="99999"/>
                     </Entry.Behaviors>

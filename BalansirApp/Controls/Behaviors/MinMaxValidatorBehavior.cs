@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace BalansirApp.Controls
+namespace BalansirApp.Controls.Behaviors
 {
     public class MinMaxValidatorBehavior : Behavior<Entry>
     {
@@ -37,7 +37,7 @@ namespace BalansirApp.Controls
             bool ch = int.TryParse(newTextValue, out int newVal);
             if (ch)
             {
-                if (newVal < this.MinValue || newVal > this.MaxValue)
+                if (newVal < MinValue || newVal > MaxValue)
                 {
                     ((Entry)sender).Text = e.OldTextValue;
                 }

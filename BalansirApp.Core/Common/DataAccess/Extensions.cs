@@ -1,6 +1,5 @@
 ﻿using BalansirApp.Core.Common.DataAccess.Interfaces;
 using SQLite;
-using System;
 using System.Collections.Generic;
 
 namespace BalansirApp.Core.Common.DataAccess
@@ -19,15 +18,6 @@ namespace BalansirApp.Core.Common.DataAccess
             foreach (var record in  records)
             {
                 dao.Delete(record.Id);
-            }
-        }
-
-        public static void ExecuteDbConnection(this IAppFilesLocator appFilesLocator, Action<SQLiteConnection> action)
-        {
-            string dbPath = appFilesLocator.GetDatabasePath();
-            using (var db = new SQLiteConnection(dbPath))
-            {
-                db.RunInTransaction(() => action(db));
             }
         }
     }

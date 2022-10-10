@@ -1,11 +1,14 @@
 ﻿using BalansirApp.Core.Acts.DataAccess.Interfaces;
 using BalansirApp.Core.Common.DataAccess;
 using SQLite;
+using System.Linq;
 
 namespace BalansirApp.Core.Acts.DataAccess
 {
     public class ActDAO : AbstractDAO<Act, ActsQueryParam>, IActDAO
     {
+        protected override TableQuery<Act> Table => _db.Table<Act>();
+
         // CTOR
         public ActDAO(SQLiteConnection db) : base(db)
         {
@@ -14,7 +17,7 @@ namespace BalansirApp.Core.Acts.DataAccess
         // METHODS: Protected
         protected override TableQuery<Act> Query(ActsQueryParam queryParam)
         {
-            var q = base.Query(queryParam).OrderByDescending(x => x.TimeStamp);
+            var q = base.Query(queryParam);
 
             if (queryParam != null)
             {
@@ -34,7 +37,7 @@ namespace BalansirApp.Core.Acts.DataAccess
                 }
             }
 
-            return q;
+            return q.OrderByDescending(x => x.TimeStamp);
         }
     }
 }

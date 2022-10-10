@@ -1,7 +1,6 @@
 ﻿using BalansirApp.Core.Acts;
 using BalansirApp.Core.Acts.DataAccess;
 using BalansirApp.Core.Common.DataAccess;
-using BalansirApp.Core.Domains.Acts;
 using BalansirApp.Core.Products;
 using BalansirApp.Pages;
 using BalansirApp.ViewModels.Common;

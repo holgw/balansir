@@ -1,9 +1,8 @@
-﻿using BalansirApp.Core.Acts;
-using BalansirApp.Core.Common.DataAccess;
+﻿using BalansirApp.Core.Common.DataAccess;
 using BalansirApp.Core.Products;
 using System;
 
-namespace BalansirApp.Core.Domains.Acts
+namespace BalansirApp.Core.Acts
 {
     public class ActView : IIdentifier
     {

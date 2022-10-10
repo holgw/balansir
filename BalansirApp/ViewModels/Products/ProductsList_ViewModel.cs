@@ -6,7 +6,7 @@ using BalansirApp.ViewModels.Acts;
 using BalansirApp.ViewModels.Common;
 using Xamarin.Forms;
 
-namespace BalansirApp.ViewModels.ItemReferences
+namespace BalansirApp.ViewModels.Products
 {
     public class ProductsList_ViewModel : EntityList_ViewModel<Product, ProductView, ProductsQueryParam>
     {
@@ -34,7 +34,7 @@ namespace BalansirApp.ViewModels.ItemReferences
         public ProductsList_ViewModel(ISettingsProvider settings, IProductsService entityService)
             : base(settings, entityService)
         {
-            this.ResetFilterCommand = new Command(() => ResetFilter());
+            ResetFilterCommand = new Command(() => ResetFilter());
         }
 
         // METHODS: Public
@@ -47,32 +47,32 @@ namespace BalansirApp.ViewModels.ItemReferences
 
         protected override ProductsQueryParam GetQueryParam()
         {
-            return new ProductsQueryParam(this.PageSize, this.CurrentPage, this.SearchName);
+            return new ProductsQueryParam(PageSize, CurrentPage, SearchName);
         }
         protected override void Subscribe_ItemChangedEvent()
         {
             MessagingCenter.Subscribe<ProductEdit_ViewModel>
                 (this,
-                this.ItemChanged_EventName,
+                ItemChanged_EventName,
                 async (obj) =>
                 {
-                    await this.ExecuteLoadItemsCommand();
+                    await ExecuteLoadItemsCommand();
                 }
             );
 
             MessagingCenter.Subscribe<ActEdit_ViewModel>
                 (this,
-                this.ItemChanged_EventName,
+                ItemChanged_EventName,
                 async (obj) =>
                 {
-                    await this.ExecuteLoadItemsCommand();
+                    await ExecuteLoadItemsCommand();
                 }
             );
         }
 
         void ResetFilter()
         {
-            this.SearchName = null;
+            SearchName = null;
         }
     }
 }

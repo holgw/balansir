@@ -1,4 +1,4 @@
-﻿using BalansirApp.Core.Domains.Acts;
+﻿using BalansirApp.Core.Acts;
 using BalansirApp.Core.Products;
 using BalansirApp.ViewModels.Acts;
 using System;

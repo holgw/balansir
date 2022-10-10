@@ -3,7 +3,7 @@ using BalansirApp.Core.Products.DataAccess;
 using BalansirApp.ViewModels.Common;
 using Xamarin.Forms;
 
-namespace BalansirApp.ViewModels.ItemReferences
+namespace BalansirApp.ViewModels.Products
 {
     public class ProductEdit_ViewModel :
         EntityEdit_ViewModel<Product, ProductView, ProductsQueryParam>
@@ -11,7 +11,8 @@ namespace BalansirApp.ViewModels.ItemReferences
         public override string Title => _source == null ? "НОВЫЙ ПРОДУКТ" : "ПРОДУКТ";
 
         // PROPS: Input
-        [FormField] public string Name
+        [FormField]
+        public string Name
         {
             get => _source?.Name;
             set
@@ -21,7 +22,8 @@ namespace BalansirApp.ViewModels.ItemReferences
                 InformPropertyChanged(oldValue, value);
             }
         }
-        [FormField] public string Code
+        [FormField]
+        public string Code
         {
             get => _source?.Code;
             set
@@ -31,7 +33,8 @@ namespace BalansirApp.ViewModels.ItemReferences
                 InformPropertyChanged(oldValue, value);
             }
         }
-        [FormField] public string Units
+        [FormField]
+        public string Units
         {
             get => _source?.Units;
             set
@@ -41,7 +44,8 @@ namespace BalansirApp.ViewModels.ItemReferences
                 InformPropertyChanged(oldValue, value);
             }
         }
-        [FormField] public string Description
+        [FormField]
+        public string Description
         {
             get => _source?.Description;
             set

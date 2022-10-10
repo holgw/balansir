@@ -3,6 +3,8 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using BalansirApp.Core.Common.DataAccess;
+using Xamarin.Forms;
 
 namespace BalansirApp.Droid
 {
@@ -17,6 +19,8 @@ namespace BalansirApp.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            DependencyService.RegisterSingleton<IAppFilesLocator>(new AppFilesLocator_Android());
+
             LoadApplication(new App());
         }
 

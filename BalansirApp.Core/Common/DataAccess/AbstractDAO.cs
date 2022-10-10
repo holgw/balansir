@@ -1,6 +1,7 @@
 ﻿using BalansirApp.Core.Common.DataAccess.Interfaces;
 using SQLite;
 using System;
+using System.Linq;
 
 namespace BalansirApp.Core.Common.DataAccess
 {
@@ -14,7 +15,7 @@ namespace BalansirApp.Core.Common.DataAccess
     {
         protected readonly SQLiteConnection _db;
 
-        protected virtual TableQuery<T> Table => _db.Table<T>();
+        protected abstract TableQuery<T> Table { get; }
 
         // CTOR
         public AbstractDAO(SQLiteConnection db)
@@ -46,11 +47,11 @@ namespace BalansirApp.Core.Common.DataAccess
         }
         public T TryGet(int id)
         {
-            return _db.Find<T>(id);
+            return this.Table.FirstOrDefault(x => x.Id == id);
         }
         public int Delete(int id)
         {
-            return _db.Delete<T>(id);
+            return this.Table.Delete(x => x.Id == id);
         }
         public int Save(T item, bool insertStrict = false)
         {
@@ -61,14 +62,15 @@ namespace BalansirApp.Core.Common.DataAccess
             }
             else
             {
-                return _db.Insert(item);
+                item.Id = _db.Insert(item);
+                return item.Id;
             }
         }
 
         // METHODS: Protected
         protected virtual TableQuery<T> Query(P queryParam)
         {
-            return Table;
+            return this.Table;
         }
     }
 }

@@ -2,11 +2,19 @@
 {
     /// <summary>
     /// Интерфейс доступа к путям файлов, используемых в  приложении, 
-    /// на устройстве пользователя . Реализация класса зависит от платформы устройства.
+    /// на устройстве пользователя. Реализация класса зависит от платформы устройства.
     /// Развруливаются зависимости через DependencyService
     /// </summary>
     public interface IAppFilesLocator
     {
-        string GetDatabasePath();
+        string DbName { get; }
+
+        string DbFolder { get; }
+
+        string DbPath { get; }
+
+        string ConnectionString { get; }
+
+        string LogsFolder { get; }
     }
 }
